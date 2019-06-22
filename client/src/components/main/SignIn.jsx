@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 import styled from "styled-components";
+import { Login } from "../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
   margin-top: 10%;
@@ -22,13 +25,28 @@ const userSchema = Yup.object().shape({
 });
 
 class SignIn extends Component {
+  handleSubmitSignIn = values => {
+    this.props.Login(values);
+  };
+  handleResrtPasswordButton = e => {
+    window.location = "/reset-password";
+  };
+
   render() {
+    if (this.props.authError) {
+      console.log(this.props.authError);
+      Swal.fire({
+        type: "error",
+        title: "Error!",
+        text: this.props.authError
+      });
+    }
     return (
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={userSchema}
         onSubmit={values => {
-          console.log(values);
+          this.handleSubmitSignIn(values);
         }}
       >
         {props => (
@@ -78,7 +96,11 @@ class SignIn extends Component {
             >
               Login
             </button>
-            <button type="button" className="btn btn-link">
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={e => this.handleResrtPasswordButton(e)}
+            >
               Reset Password
             </button>
           </FormStyle>
@@ -88,4 +110,19 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStatusToProps = state => {
+  return {
+    authError: state.auth.authError
+  };
+};
+
+const mapDspatchToProps = dispatch => {
+  return {
+    Login: data => dispatch(Login(data))
+  };
+};
+
+export default connect(
+  mapStatusToProps,
+  mapDspatchToProps
+)(SignIn);
