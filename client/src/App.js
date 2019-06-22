@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
-// import Main from "./components/Main.jsx";
+import Main from "./components/main";
 import Footer from "./components/Footer";
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
       <React.Fragment>
         <BrowserRouter>
           <Header />
-          {/* <Main /> */}
+          <Main />
           <Footer />
         </BrowserRouter>
       </React.Fragment>
