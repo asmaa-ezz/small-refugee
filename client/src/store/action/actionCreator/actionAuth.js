@@ -55,7 +55,7 @@ export const Register = data => dispatch => {
           error: dataUser.error
         })
       } else {
-        window.location = '/sign-up';
+        window.location = '/sign-in';
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: data
