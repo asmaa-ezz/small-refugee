@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import { DecodeToken } from "../store/action/actionCreator/actionAuth";
 
 const HeaderPage = styled.div`
   width: 100%;
@@ -15,39 +17,62 @@ const link = {
 };
 
 class Header extends Component {
+  componentDidMount() {
+    this.props.DecodeToken();
+  }
+
   handleUpperCase = str => {
     return str.toUpperCase();
   };
 
   render() {
+    console.log(this.props.user);
+
     return (
       <HeaderPage>
         <div className="container">
           <Link to="/" style={link}>
             HOME
           </Link>
-          {/* no user */}
-          <React.Fragment>
-            <Link to="/sign-in" style={link}>
-              SIGN IN
-            </Link>
-            <Link to="/sign-up" style={link}>
-              SIGN UP
-            </Link>
-          </React.Fragment>
-          {/*  user */}
-          <React.Fragment>
-            <Link to="/Profile" style={link}>
-              PROFILE
-            </Link>
-            <Link to="/sign-out" style={link}>
-              SIGN OUT
-            </Link>
-          </React.Fragment>
+          {this.props.user ? (
+            <React.Fragment>
+              <Link to="/Profile" style={link}>
+                {this.props.user.username &&
+                  this.handleUpperCase(this.props.user.username)}
+              </Link>
+              <Link to="/sign-out" style={link}>
+                SIGN OUT
+              </Link>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Link to="/sign-in" style={link}>
+                SIGN IN
+              </Link>
+              <Link to="/sign-up" style={link}>
+                SIGN UP
+              </Link>
+            </React.Fragment>
+          )}
         </div>
       </HeaderPage>
     );
   }
 }
 
-export default Header;
+const mapDispatchToProps = dispatch => {
+  return {
+    DecodeToken: () => dispatch(DecodeToken())
+  };
+};
+
+const mapStatusToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(
+  mapStatusToProps,
+  mapDispatchToProps
+)(Header);

@@ -15,9 +15,10 @@ const FormStyle = styled.form`
 `;
 
 const userSchema = Yup.object().shape({
-  email: Yup.string()
-    .email()
-    .required(),
+  username: Yup.string()
+    .required()
+    .max(20)
+    .min(1),
   password: Yup.string()
     .required()
     .max(20)
@@ -43,7 +44,7 @@ class SignIn extends Component {
     }
     return (
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ username: "", password: "" }}
         validationSchema={userSchema}
         onSubmit={values => {
           this.handleSubmitSignIn(values);
@@ -52,18 +53,18 @@ class SignIn extends Component {
         {props => (
           <FormStyle onSubmit={props.handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email address</label>
+              <label htmlFor="username">username address</label>
               <Field
-                type="email"
-                placeholder="Enter email"
+                type="text"
+                placeholder="Enter username"
                 onChange={props.handleChange}
-                name="email"
-                value={props.values.email}
+                name="username"
+                value={props.values.username}
                 className="form-control"
               />
-              {props.errors.email && props.touched.email ? (
+              {props.errors.username && props.touched.username ? (
                 <span className="form-text text-danger small">
-                  {props.errors.email}
+                  {props.errors.username}
                 </span>
               ) : (
                 ""

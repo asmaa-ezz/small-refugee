@@ -1,4 +1,5 @@
-import { SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR, SIGNOUT_SUCCESS, RESET_PASSWORD } from '../actionTypes';
+import jwtDecode from "jwt-decode";
+import { SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR, SIGNOUT_SUCCESS, RESET_PASSWORD, DECODE_TOKEN } from '../actionTypes';
 
 export const Login = dataUser => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
@@ -77,6 +78,18 @@ export const LogOutRemoveToken = () => dispatch => {
     type: SIGNOUT_SUCCESS,
     payload: null
   })
+};
+
+export const DecodeToken = () => dispatch => {
+  try {
+    const jwt = localStorage.getItem("token");
+    const user = jwtDecode(jwt);
+    dispatch({
+      type: DECODE_TOKEN,
+      payload: user
+    })
+  } catch (ex) { }
+
 };
 
 export const resetPasswordSendEmail = data => dispatch => {

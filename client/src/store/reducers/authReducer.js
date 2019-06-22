@@ -26,6 +26,11 @@ const authReducer = (state = initState, action) => {
       };
     case 'SIGNOUT_SUCCESS':
       return state;
+    case 'DECODE_TOKEN':
+      return {
+        ...state,
+        user: action.payload
+      }
     case 'RESET_PASSWORD':
       return {
         ...state,
