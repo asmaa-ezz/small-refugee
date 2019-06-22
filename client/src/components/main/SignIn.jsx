@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Login } from "../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
-  margin-top: 10%;
+  margin-top: 5%;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 5%;
