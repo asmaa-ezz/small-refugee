@@ -37,7 +37,7 @@ class Header extends Component {
           </React.Fragment>
           {/*  user */}
           <React.Fragment>
-            <Link to="/prifile" style={link}>
+            <Link to="/Profile" style={link}>
               PROFILE
             </Link>
             <Link to="/sign-out" style={link}>
