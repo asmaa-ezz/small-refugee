@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Post from "../post";
+import CreatPost from "../post/CreatPost";
 
 class Home extends Component {
   render() {
     return (
       <React.Fragment>
         <div>Home Page</div>
-        <Post />
+        <CreatPost />
       </React.Fragment>
     );
   }

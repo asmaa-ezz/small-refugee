@@ -30,10 +30,6 @@ export const AddPost = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
   const url = 'https://small-refugee-app.herokuapp.com/social/post/';
 
-  const newDat = {
-    text: data.postText,
-    subject: data.data
-  }
   const Token = GetToken();
 
   fetch((proxyurl + url), {
@@ -42,12 +38,10 @@ export const AddPost = data => dispatch => {
       'content-type': 'application/json',
       "Authorization": `JWT ${Token}`,
     },
-    body: JSON.stringify(newDat)
+    body: JSON.stringify(data)
   })
     .then(res => res.json())
     .then(dataOfPost => {
-      console.log('iiiiiii', dataOfPost);
-
       dispatch({
         type: ADD_POST,
         payload: dataOfPost
@@ -55,3 +49,36 @@ export const AddPost = data => dispatch => {
     })
 };
 
+export const GetPosts = () => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = 'https://small-refugee-app.herokuapp.com/';
+
+  fetch(proxyurl + url)
+    .then(res => res.json())
+    .then(listPosts => {
+      dispatch({
+        type: GET_POSTS,
+        payload: listPosts
+      })
+    })
+};
+
+export const GetPostsOfUser = data => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = 'https://small-refugee-app.herokuapp.com/';
+
+  fetch((proxyurl + url), {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(listPosts => {
+      dispatch({
+        type: GET_POSTS_PROFILE,
+        payload: listPosts
+      })
+    })
+};

@@ -8,11 +8,18 @@ class ListSubject extends Component {
     this.props.GetAllSubject();
   }
   render() {
+    console.log(this.props.values.subject);
+
     const mapSelect =
       this.props.subject &&
       this.props.subject.map(item => {
         return (
-          <option key={item.id} value={item.title}>
+          <option
+            key={item.id}
+            value={`https://small-refugee-app.herokuapp.com/main/subject/${
+              item.id
+            }/`}
+          >
             {item.title}
           </option>
         );
@@ -20,7 +27,12 @@ class ListSubject extends Component {
 
     return (
       <React.Fragment>
-        <Field component="select" name="supject" className="form-control">
+        <Field
+          component="select"
+          name="subject"
+          className="form-control"
+          value={this.props.values.subject}
+        >
           <option key={0} value={null}>
             Select subject...
           </option>
