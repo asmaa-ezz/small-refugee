@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Field } from "formik";
 import { GetAllSubject } from "../../store/action/actionCreator/actionPost";
 
 class ListSubject extends Component {
@@ -10,15 +11,21 @@ class ListSubject extends Component {
     const mapSelect =
       this.props.subject &&
       this.props.subject.map(item => {
-        return <option key={item.id}>{item.title}</option>;
+        return (
+          <option key={item.id} value={item.title}>
+            {item.title}
+          </option>
+        );
       });
 
     return (
       <React.Fragment>
-        <select className="form-control">
-          <option key={0}>Select subject...</option>
+        <Field component="select" name="supject" className="form-control">
+          <option key={0} value={null}>
+            Select subject...
+          </option>
           {mapSelect}
-        </select>
+        </Field>
       </React.Fragment>
     );
   }
