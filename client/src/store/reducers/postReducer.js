@@ -1,4 +1,6 @@
-const initState = {};
+const initState = {
+  posts: {}
+};
 
 const postReducer = (state = initState, action) => {
   switch (action.type) {
@@ -6,6 +8,12 @@ const postReducer = (state = initState, action) => {
       return {
         ...state,
         subject: action.payload,
+      };
+    case 'ADD_POST':
+      return {
+        ...state,
+        posts: [...initState.posts, action.payload],
+        newPost: action.payload,
       };
     default: return state;
   }
