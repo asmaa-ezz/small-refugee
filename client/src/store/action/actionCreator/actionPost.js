@@ -28,8 +28,12 @@ export const GetAllSubject = () => dispatch => {
 
 export const AddPost = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/';
+  const url = 'https://small-refugee-app.herokuapp.com/social/post/';
 
+  const newDat = {
+    text: data.postText,
+    subject: data.data
+  }
   const Token = GetToken();
 
   fetch((proxyurl + url), {
@@ -38,13 +42,16 @@ export const AddPost = data => dispatch => {
       'content-type': 'application/json',
       "Authorization": `JWT ${Token}`,
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(newDat)
   })
     .then(res => res.json())
     .then(dataOfPost => {
+      console.log('iiiiiii', dataOfPost);
+
       dispatch({
         type: ADD_POST,
         payload: dataOfPost
       })
     })
 };
+
