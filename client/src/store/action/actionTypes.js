@@ -12,7 +12,6 @@ export const DECODE_TOKEN = 'DECODE_TOKEN';
 export const GET_ALL_SUBJECT = 'GET_ALL_SUBJECT';
 export const ADD_POST = 'ADD_POST';
 export const GET_POSTS = 'GET_POSTS';
-export const GET_POSTS_PROFILE = 'GET_POSTS_PROFILE';
-
-
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
 

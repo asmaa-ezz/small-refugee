@@ -26,6 +26,7 @@ class CreatPost extends Component {
     if (values.subject === "Select subject...") values.subject = null;
     this.props.AddPost(values);
   };
+
   render() {
     return (
       <Formik

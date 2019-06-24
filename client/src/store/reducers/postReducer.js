@@ -18,6 +18,16 @@ const postReducer = (state = initState, action) => {
         ...state,
         posts: action.payload,
       }
+    case 'ADD_COMMENT':
+      return {
+        ...state,
+        newComment: action.payload,
+      }
+    case 'GET_COMMENTS':
+      return {
+        ...state,
+        comments: action.payload,
+      }
     default: return state;
   }
 };
