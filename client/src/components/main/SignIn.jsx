@@ -35,7 +35,6 @@ class SignIn extends Component {
 
   render() {
     if (this.props.authError) {
-      console.log(this.props.authError);
       Swal.fire({
         type: "error",
         title: "Error!",
