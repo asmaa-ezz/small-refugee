@@ -1,5 +1,4 @@
 const initState = {
-  posts: {}
 };
 
 const postReducer = (state = initState, action) => {
@@ -14,6 +13,11 @@ const postReducer = (state = initState, action) => {
         ...state,
         newPost: action.payload,
       };
+    case 'GET_POSTS':
+      return {
+        ...state,
+        posts: action.payload,
+      }
     default: return state;
   }
 };

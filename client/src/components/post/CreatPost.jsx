@@ -24,13 +24,9 @@ const FormStyle = styled.form`
 class CreatPost extends Component {
   handleSubmitCreatPost = values => {
     if (values.subject === "Select subject...") values.subject = null;
-    console.log(values);
-
     this.props.AddPost(values);
   };
   render() {
-    console.log(this.props.newPost && this.props.newPost);
-
     return (
       <Formik
         initialValues={{ text: "", subject: "" }}

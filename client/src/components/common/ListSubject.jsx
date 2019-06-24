@@ -8,8 +8,6 @@ class ListSubject extends Component {
     this.props.GetAllSubject();
   }
   render() {
-    console.log(this.props.values.subject);
-
     const mapSelect =
       this.props.subject &&
       this.props.subject.map(item => {

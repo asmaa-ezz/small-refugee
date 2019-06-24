@@ -6,6 +6,8 @@ import SignUp from "./SignUp";
 import SignOut from "../SignOut";
 import ResetPassword from "./ResetPassword";
 import Profile from "./Profile";
+import SubjectPost from "./SubjectPost";
+import UserProfile from "./UserProfile";
 import NotFound from "./NotFound";
 
 class Main extends Component {
@@ -19,6 +21,9 @@ class Main extends Component {
           <Route path="/sign-out" component={SignOut} />
           <Route path="/reset-password" component={ResetPassword} />
           <Route path="/Profile" component={Profile} />
+          <Route path="/posts/:title" component={SubjectPost} />
+          {/* if username the same username profile -- redurect */}
+          <Route path="/username/:username" component={UserProfile} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
