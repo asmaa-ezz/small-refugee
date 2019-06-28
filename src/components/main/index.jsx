@@ -16,15 +16,13 @@ class Main extends Component {
     return (
       <div className="container">
         <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
           <PrivateRoute exact path="/" component={Home} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
           <Route path="/sign-out" component={SignOut} />
           <Route path="/reset-password" component={ResetPassword} />
-          <PrivateRoute path="/Profile" component={Profile} />
+          <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/posts/:title" component={SubjectPost} />
-          {/* if username the same username profile -- redurect */}
           <PrivateRoute path="/username/:username" component={UserProfile} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />

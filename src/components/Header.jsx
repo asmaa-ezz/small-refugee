@@ -34,7 +34,7 @@ class Header extends Component {
           </Link>
           {this.props.user ? (
             <React.Fragment>
-              <Link to="/Profile" style={link}>
+              <Link to="/profile" style={link}>
                 {this.props.user.username &&
                   this.handleUpperCase(this.props.user.username)}
               </Link>
