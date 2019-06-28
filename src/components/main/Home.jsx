@@ -6,7 +6,6 @@ class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>Home Page</div>
         <CreatPost />
         <br />
         <hr />

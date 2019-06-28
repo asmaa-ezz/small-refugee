@@ -9,13 +9,6 @@ class UserProfile extends Component {
     this.props.DecodeToken();
   }
   render() {
-    console.log(this.props.user && this.props.user.username);
-
-    this.props.user &&
-    this.props.user.username === this.props.match.params.username
-      ? console.log(0)
-      : console.log(1);
-
     return this.props.user &&
       this.props.user.username === this.props.match.params.username ? (
       <Redirect to="/profile" />

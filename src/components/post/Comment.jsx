@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 class Comment extends Component {
   render() {
@@ -8,7 +9,8 @@ class Comment extends Component {
       user_last_name,
       user_username,
       text,
-      likes
+      likes,
+      created_at
     } = this.props.data;
     return (
       <div
@@ -22,6 +24,9 @@ class Comment extends Component {
         <Link to={`/username/${user_username}`}>
           {user_first_name} {user_last_name}
         </Link>
+        <Moment fromNow ago className="form-text small text-black-50">
+          {created_at}
+        </Moment>
         <div>{text}</div>
         <div>likes: {likes}</div>
       </div>
