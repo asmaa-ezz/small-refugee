@@ -15,10 +15,9 @@ const FormStyle = styled.form`
 `;
 
 const userSchema = Yup.object().shape({
-  username: Yup.string()
-    .required()
-    .max(20)
-    .min(1),
+  email: Yup.string()
+    .email()
+    .required(),
   password: Yup.string()
     .required()
     .max(20)
@@ -43,7 +42,7 @@ class SignIn extends Component {
     }
     return (
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={userSchema}
         onSubmit={values => {
           this.handleSubmitSignIn(values);
@@ -52,18 +51,18 @@ class SignIn extends Component {
         {props => (
           <FormStyle onSubmit={props.handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">username address</label>
+              <label htmlFor="email">عنوان البريد الالكتروني:</label>
               <Field
                 type="text"
-                placeholder="Enter username"
+                placeholder="أدخل البريد الالكتروني "
                 onChange={props.handleChange}
-                name="username"
-                value={props.values.username}
+                name="email"
+                value={props.values.email}
                 className="form-control"
               />
-              {props.errors.username && props.touched.username ? (
+              {props.errors.email && props.touched.email ? (
                 <span className="form-text text-danger small">
-                  {props.errors.username}
+                  {props.errors.email}
                 </span>
               ) : (
                 ""
@@ -71,13 +70,13 @@ class SignIn extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">كلمة المرور :</label>
               <Field
                 type="password"
                 onChange={props.handleChange}
                 name="password"
                 value={props.values.password}
-                placeholder="Password"
+                placeholder="أدحل كلمة المرور"
                 className="form-control"
               />
               {props.errors.password && props.touched.password ? (
@@ -94,14 +93,14 @@ class SignIn extends Component {
               disabled={!props.dirty && !props.isSubmitting}
               className="btn btn-primary"
             >
-              Login
+              تسجيل
             </button>
             <button
               type="button"
               className="btn btn-link"
               onClick={e => this.handleResrtPasswordButton(e)}
             >
-              Reset Password
+              نسيت كلمة المرور!
             </button>
           </FormStyle>
         )}

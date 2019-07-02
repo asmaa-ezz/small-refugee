@@ -1,4 +1,6 @@
 const initState = {
+  posts: [],
+  comments: [],
 };
 
 const postReducer = (state = initState, action) => {
@@ -11,7 +13,7 @@ const postReducer = (state = initState, action) => {
     case 'ADD_POST':
       return {
         ...state,
-        newPost: action.payload,
+        posts: [action.payload, ...state.posts],
       };
     case 'GET_POSTS':
       return {
@@ -19,14 +21,24 @@ const postReducer = (state = initState, action) => {
         posts: action.payload,
       }
     case 'ADD_COMMENT':
-      return {
-        ...state,
-        newComment: action.payload,
-      }
+      const { id, comments } = action.payload;
+
+      // state.comments.forEach(item => {
+      //   console.log(item);
+
+      // })
+
+      // return {
+      //   // id, comments
+      //   ...state,
+      //   comments: [...state.comments, action.payload],
+      // }
+      return state;
     case 'GET_COMMENTS':
+
       return {
         ...state,
-        comments: action.payload,
+        comments: [...state.comments, action.payload],
       }
     default: return state;
   }

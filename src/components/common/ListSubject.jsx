@@ -32,7 +32,7 @@ class ListSubject extends Component {
           value={this.props.values.subject}
         >
           <option key={0} value={null}>
-            Select subject...
+            اختر مادة
           </option>
           {mapSelect}
         </Field>

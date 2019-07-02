@@ -7,9 +7,6 @@ class ListPosts extends Component {
   componentDidMount() {
     this.props.GetPosts();
   }
-  componentDidUpdate() {
-    this.props.GetPosts();
-  }
 
   render() {
     const mapPost = this.props.posts ? (

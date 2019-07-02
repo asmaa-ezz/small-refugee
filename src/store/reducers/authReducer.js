@@ -1,4 +1,7 @@
-const initState = {};
+const initState = {
+  user: {},
+  authError: null
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -36,6 +39,12 @@ const authReducer = (state = initState, action) => {
         ...state,
         massege: action.payload
       };
+
+    case 'DATA_USER':
+      return {
+        ...state,
+        user: action.payload
+      }
     default: return state;
   }
 };
