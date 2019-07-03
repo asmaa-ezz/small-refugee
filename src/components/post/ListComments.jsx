@@ -8,17 +8,24 @@ class ListComments extends Component {
     this.props.GetCommentPost(this.props.id);
   }
 
-  componentDidUpdate() {
-    this.props.GetCommentPost(this.props.id);
-  }
-
   render() {
+    // const comentsData =
+    //   this.props.comments.comments &&
+    //   this.props.comments.comments.map(item => {
+    //     return <Comment data={item} key={item.id} />;
+    //   });
+
     const comentsData =
       this.props.comments &&
-      this.props.comments.map(item => {
-        return <Comment data={item} key={item.id} />;
+      this.props.comments.map(element => {
+        if (element.id === this.props.id) {
+          element.comments.map(item => {
+            return <Comment data={item} key={item.id} />;
+          });
+        } else {
+          return null;
+        }
       });
-
     return <div>{comentsData}</div>;
   }
 }

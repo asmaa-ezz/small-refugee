@@ -6,6 +6,8 @@ export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const DECODE_TOKEN = 'DECODE_TOKEN';
+export const DATA_USER = 'DATA_USER';
+
 
 // Action of Post
 

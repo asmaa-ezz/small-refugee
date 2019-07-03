@@ -4,7 +4,7 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import styled from "styled-components";
-import { Register } from "../../store/action/actionCreator/actionAuth";
+import { Register } from "../../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
   margin-top: 5%;
@@ -16,20 +16,22 @@ const FormStyle = styled.form`
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
-    .email()
-    .required(),
+    .email("")
+    .required("الحقل مطلوب"),
   password: Yup.string()
-    .required()
+    .required("الحقل مطلوب")
     .max(20)
     .min(1),
   username: Yup.string()
-    .required()
+    .required("الحقل مطلوب")
     .max(20)
     .min(3),
-  firstName: Yup.string()
+  first_name: Yup.string()
+    .required("الحقل مطلوب")
     .max(20)
     .min(1),
-  lastName: Yup.string()
+  last_name: Yup.string()
+    .required("الحقل مطلوب")
     .max(20)
     .min(1)
 });
@@ -53,8 +55,8 @@ class SignUp extends Component {
           email: "",
           password: "",
           username: "",
-          firstName: "",
-          lastName: ""
+          first_name: "",
+          last_name: ""
         }}
         validationSchema={userSchema}
         onSubmit={values => {
@@ -64,10 +66,10 @@ class SignUp extends Component {
         {props => (
           <FormStyle onSubmit={props.handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email address :</label>
+              <label htmlFor="email">عنوان البريد الالكتروني: </label>
               <Field
                 type="email"
-                placeholder="Enter email"
+                placeholder="أدحل البريد الالكتروني :"
                 onChange={props.handleChange}
                 name="email"
                 value={props.values.email}
@@ -83,13 +85,13 @@ class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password :</label>
+              <label htmlFor="password">كلمة المرور :</label>
               <Field
                 type="password"
                 onChange={props.handleChange}
                 name="password"
                 value={props.values.password}
-                placeholder="Password"
+                placeholder="أدخل كلمة المرور "
                 className="form-control"
               />
               {props.errors.password && props.touched.password ? (
@@ -102,13 +104,13 @@ class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="username">Username :</label>
+              <label htmlFor="username">إسم المستخدم :</label>
               <Field
                 type="text"
                 onChange={props.handleChange}
                 name="username"
                 value={props.values.username}
-                placeholder="Username"
+                placeholder="أدحل اسم المستخدم "
                 className="form-control"
               />
               {props.errors.username && props.touched.username ? (
@@ -121,18 +123,18 @@ class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="firstName">First name :</label>
+              <label htmlFor="first_name">الاسم الأول :</label>
               <Field
                 type="text"
                 onChange={props.handleChange}
-                name="firstName"
-                value={props.values.firstName}
-                placeholder="First name"
+                name="first_name"
+                value={props.values.first_name}
+                placeholder="الاسم الأول"
                 className="form-control"
               />
-              {props.errors.firstName && props.touched.firstName ? (
+              {props.errors.first_name && props.touched.first_name ? (
                 <span className="form-text text-danger small">
-                  {props.errors.firstName}
+                  {props.errors.first_name}
                 </span>
               ) : (
                 ""
@@ -140,18 +142,18 @@ class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="lastName">Last name :</label>
+              <label htmlFor="last_name">الاسم الأخير : </label>
               <Field
                 type="text"
                 onChange={props.handleChange}
-                name="lastName"
-                value={props.values.lastName}
-                placeholder="Last name"
+                name="last_name"
+                value={props.values.last_name}
+                placeholder="الاسم الأخير "
                 className="form-control"
               />
-              {props.errors.lastName && props.touched.lastName ? (
+              {props.errors.last_name && props.touched.last_name ? (
                 <span className="form-text text-danger small">
-                  {props.errors.lastName}
+                  {props.errors.last_name}
                 </span>
               ) : (
                 ""
@@ -163,7 +165,7 @@ class SignUp extends Component {
               disabled={!props.dirty && !props.isSubmitting}
               className="btn btn-primary"
             >
-              Register
+              انشاء حساب
             </button>
           </FormStyle>
         )}

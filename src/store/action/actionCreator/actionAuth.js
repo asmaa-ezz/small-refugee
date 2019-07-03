@@ -1,9 +1,15 @@
 import jwtDecode from "jwt-decode";
-import { SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR, SIGNOUT_SUCCESS, RESET_PASSWORD, DECODE_TOKEN } from '../actionTypes';
+import { SIGNIN_SUCCESS, SIGNIN_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR, SIGNOUT_SUCCESS, RESET_PASSWORD, DECODE_TOKEN, DATA_USER } from '../actionTypes';
+import { API } from '../confic'
+
+export const GetToken = () => {
+  const jwt = localStorage.getItem("token");
+  return jwt;
+}
 
 export const Login = dataUser => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/user/login/';
+  const url = `${API}user/login/`;
 
   fetch((proxyurl + url), {
     method: 'POST',
@@ -12,7 +18,9 @@ export const Login = dataUser => dispatch => {
     },
     body: JSON.stringify(dataUser)
   })
-    .then(res => res.json())
+    .then(res => {
+      return res.json()
+    })
     .then(dataUser => {
       if (dataUser.error) {
         dispatch({
@@ -39,7 +47,7 @@ export const Login = dataUser => dispatch => {
 
 export const Register = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/user/register/';
+  const url = `${API}/user/register/`;
 
   fetch((proxyurl + url), {
     method: 'POST',
@@ -48,7 +56,10 @@ export const Register = data => dispatch => {
     },
     body: JSON.stringify(data)
   })
-    .then(res => res.json())
+    .then(res => {
+      return res.json()
+    })
+
     .then(dataUser => {
       if (dataUser.error) {
         dispatch({
@@ -56,7 +67,9 @@ export const Register = data => dispatch => {
           error: dataUser.error
         })
       } else {
-        window.location = '/sign-in';
+        const { token: jwt } = dataUser;
+        localStorage.setItem("token", jwt);
+        window.location = '/';
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: data
@@ -94,7 +107,7 @@ export const DecodeToken = () => dispatch => {
 
 export const resetPasswordSendEmail = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/user/resetPassword';
+  const url = `${API}/user/resetPassword`;
 
   fetch((proxyurl + url), {
     method: 'POST',
@@ -111,3 +124,32 @@ export const resetPasswordSendEmail = data => dispatch => {
       })
     })
 }
+
+export const GetDataUser = () => dispatch => {
+
+  try {
+    const jwt = localStorage.getItem("token");
+    const user = jwtDecode(jwt);
+    const { user_id } = user;
+
+    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+    const url = `${API}/user/${user_id}`;
+
+    fetch((proxyurl + url), {
+      headers: {
+        'content-type': 'application/json',
+        "Authorization": `JWT ${jwt}`,
+      },
+      body: JSON.stringify()
+    })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({
+          type: DATA_USER,
+          payload: data
+        })
+      })
+
+  } catch (ex) { };
+
+};

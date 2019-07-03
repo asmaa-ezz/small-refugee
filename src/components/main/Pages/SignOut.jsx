@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { LogOutRemoveToken } from "../store/action/actionCreator/actionAuth";
+import { LogOutRemoveToken } from "../../../store/action/actionCreator/actionAuth";
 
 class SignOut extends Component {
   componentDidMount() {

@@ -4,7 +4,6 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
 import { AddCommentPost } from "../../store/action/actionCreator/actionPost";
-import Comment from "./Comment";
 
 const FormStyle = styled.form`
   margin-top: 5%;
@@ -25,7 +24,8 @@ class CreateComment extends Component {
   handleSubmitComment = values => {
     const data = {
       text: values.text,
-      post: this.props.url
+      post: this.props.url,
+      id: this.props.id
     };
     this.props.AddCommentPost(data);
   };

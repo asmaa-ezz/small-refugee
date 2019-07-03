@@ -5,12 +5,13 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import ListSubject from "../common/ListSubject";
 import { AddPost } from "../../store/action/actionCreator/actionPost";
+import Post from "./Post";
 
 const postSchema = Yup.object().shape({
-  text: Yup.string()
-    .required()
-    .max(1000)
-    .min(2)
+  text: Yup.string("الحقل يجب أن يكون نص")
+    .required("الحقل مطلوب")
+    .max(1000, "يجب أن لا يزيد النص عن 1000 حرف")
+    .min(2, "يجب أن لا يقل الحنص عن 2 حرف")
 });
 
 const FormStyle = styled.form`
@@ -23,7 +24,7 @@ const FormStyle = styled.form`
 
 class CreatPost extends Component {
   handleSubmitCreatPost = values => {
-    if (values.subject === "Select subject...") values.subject = null;
+    if (values.subject === "اختر مادة") values.subject = null;
     this.props.AddPost(values);
   };
 
@@ -37,17 +38,36 @@ class CreatPost extends Component {
         }}
       >
         {props => (
-          <FormStyle onSubmit={props.handleSubmit}>
+          <form
+            onSubmit={props.handleSubmit}
+            style={{ background: "#fff", borderRadius: "5px" }}
+            className="container"
+          >
             <div className="form-group">
-              <label htmlFor="text">Post text: </label>
+              <div className="user">
+                {this.props.user.avatar && (
+                  <img
+                    src={this.props.user.avatar}
+                    alt="img"
+                    style={{ borderRadius: "50%", width: "8%", margin: "2%" }}
+                  />
+                )}
+                <span>
+                  {this.props.user.first_name &&
+                    `${this.props.user.first_name} ${
+                      this.props.user.last_name
+                    }`}
+                </span>
+              </div>
               <Field
                 type="textarea"
                 component="textarea"
-                placeholder="Enter post"
+                placeholder="شارك العالم أفكارك الجميلة"
                 onChange={props.handleChange}
                 name="text"
                 value={props.values.text}
                 className="form-control"
+                style={{ border: "none", width: "80%", marginRight: "10%" }}
               />
               {props.errors.text && props.touched.text ? (
                 <span className="form-text text-danger small">
@@ -57,19 +77,43 @@ class CreatPost extends Component {
                 ""
               )}
             </div>
+            <hr style={{ width: "106%", marginRight: "-3%" }} />
+            <div className="row">
+              <div className="col-3 form-group">
+                <ListSubject values={props.values} />
+              </div>
 
-            <div className="form-group">
-              <ListSubject values={props.values} />
+              <div className="col-3 form-group">
+                <button
+                  type="submit"
+                  disabled={!props.dirty && !props.isSubmitting}
+                  className="btn btn-secondary"
+                >
+                  أرفق صورة
+                </button>
+              </div>
+
+              <div className="col-3 form-group">
+                <button
+                  type="submit"
+                  disabled={!props.dirty && !props.isSubmitting}
+                  className="btn btn-secondary"
+                >
+                  أرفق ملف
+                </button>
+              </div>
+
+              <div className="col-3 form-group">
+                <button
+                  type="submit"
+                  disabled={!props.dirty && !props.isSubmitting}
+                  className="btn btn-primary"
+                >
+                  نشر
+                </button>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              disabled={!props.dirty && !props.isSubmitting}
-              className="btn btn-primary"
-            >
-              Create
-            </button>
-          </FormStyle>
+          </form>
         )}
       </Formik>
     );
@@ -78,6 +122,7 @@ class CreatPost extends Component {
 
 const mapStatusToProps = state => {
   return {
+    user: state.auth.user,
     newPost: state.post.newPost
   };
 };

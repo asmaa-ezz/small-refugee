@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ListPosts from "../post/ListPosts";
+import ListPosts from "../../post/ListPosts";
 
 class SubjectPost extends Component {
   render() {

@@ -171,7 +171,7 @@ class Post extends Component {
         </div>
         {this.state.viewComment && (
           <div>
-            <CreateComment url={url} />
+            <CreateComment url={url} id={id} />
             <ListComments id={id} />
           </div>
         )}

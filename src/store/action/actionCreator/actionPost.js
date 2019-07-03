@@ -1,4 +1,5 @@
 import { GET_ALL_SUBJECT, ADD_POST, GET_POSTS, ADD_COMMENT, GET_COMMENTS } from '../actionTypes';
+import { API } from '../confic'
 
 export const GetToken = () => {
   const jwt = localStorage.getItem("token");
@@ -7,7 +8,7 @@ export const GetToken = () => {
 
 export const GetAllSubject = () => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/main/subject/';
+  const url = `${API}/main/subject/`;
 
   const Token = GetToken();
 
@@ -28,7 +29,7 @@ export const GetAllSubject = () => dispatch => {
 
 export const AddPost = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/social/post/';
+  const url = `${API}/social/post/`;
 
   const Token = GetToken();
 
@@ -51,7 +52,7 @@ export const AddPost = data => dispatch => {
 
 export const GetPosts = () => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/social/post/';
+  const url = `${API}/social/post/`;
 
   const Token = GetToken();
 
@@ -74,7 +75,7 @@ export const GetPosts = () => dispatch => {
 
 export const GetCommentPost = id => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = `https://small-refugee-app.herokuapp.com/social/post/${id}/comment/`;
+  const url = `${API}/social/post/${id}/comment/`;
 
   const Token = GetToken();
 
@@ -89,16 +90,18 @@ export const GetCommentPost = id => dispatch => {
     .then(comments => {
       dispatch({
         type: GET_COMMENTS,
-        payload: comments
+        payload: { id, comments }
       })
     })
 };
 
 export const AddCommentPost = data => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = 'https://small-refugee-app.herokuapp.com/social/comment/';
+  const url = `${API}/social/comment/`;
 
   const Token = GetToken();
+
+  const { id } = data;
 
   fetch((proxyurl + url), {
     method: 'POST',
@@ -112,7 +115,7 @@ export const AddCommentPost = data => dispatch => {
     .then(comment => {
       dispatch({
         type: ADD_COMMENT,
-        payload: comment
+        payload: { id, comment }
       })
     })
 };
