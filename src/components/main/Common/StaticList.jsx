@@ -12,6 +12,7 @@ const Card = styled.div`
 
 class StaticList extends Component {
   render() {
+    const { click } = this.props;
     return (
       <React.Fragment>
         <Card className="profile">
@@ -36,16 +37,48 @@ class StaticList extends Component {
         </Card>
 
         <div className="list" style={{ marginTop: "10%" }}>
-          <button type="button" class="btn btn-outline-primary btn-block">
+          <button
+            type="button"
+            class={`btn btn-block ${
+              click === "share" ? "btn-primary" : "btn-outline-primary"
+            }`}
+            onClick={() => {
+              window.location = "/";
+            }}
+          >
             شارك أفكارك
           </button>
-          <button type="button" class="btn btn-outline-primary btn-block">
+          <button
+            type="button"
+            class={`btn btn-block ${
+              click === "learn" ? "btn-primary" : "btn-outline-primary"
+            }`}
+            onClick={() => {
+              window.location = "/learn";
+            }}
+          >
             تعلم
           </button>
-          <button type="button" class="btn btn-outline-primary btn-block">
+          <button
+            type="button"
+            class={`btn btn-block ${
+              click === "library" ? "btn-primary" : "btn-outline-primary"
+            }`}
+            onClick={() => {
+              window.location = "/library";
+            }}
+          >
             المكتبة
           </button>
-          <button type="button" class="btn btn-outline-primary btn-block">
+          <button
+            type="button"
+            class={`btn btn-block ${
+              click === "other" ? "btn-primary" : "btn-outline-primary"
+            }`}
+            onClick={() => {
+              window.location = "/other-link";
+            }}
+          >
             روابط أحرى
           </button>
         </div>

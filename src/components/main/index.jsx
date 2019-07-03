@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
-import Home from "./Home/index";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import SignOut from "../SignOut";
-import ResetPassword from "./ResetPassword";
-// import Profile from "./Profile";
-// import SubjectPost from "./SubjectPost";
-// import UserProfile from "./UserProfile";
-// import NotFound from "./NotFound";
+import SignIn from "./Pages/SignIn";
+import SignUp from "./Pages/SignUp";
+import SignOut from "./Pages/SignOut";
+import ResetPassword from "./Pages/ResetPassword";
+import Profile from "./Pages/Profile";
+import SubjectPost from "./Pages/SubjectPost";
+import UserProfile from "./Pages/UserProfile";
+import Share from "./Pages/Share";
+import NotFound from "./Pages/NotFound";
 import { PrivateRoute } from "../PrivateRoute";
+
+import Learn from "./Pages/Learn";
+import Library from "./Pages/Library";
+import OtherLink from "./Pages/OtherLink";
 
 class Main extends Component {
   render() {
@@ -23,14 +27,19 @@ class Main extends Component {
       >
         <div className="container">
           <Switch>
-            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/" component={Share} />
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/sign-out" component={SignOut} />
             <Route path="/reset-password" component={ResetPassword} />
-            {/* <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/posts/:title" component={SubjectPost} />
-            <PrivateRoute path="/username/:username" component={UserProfile} /> */}
+            <PrivateRoute path="/username/:username" component={UserProfile} />
+            {/* Pages */}
+            <PrivateRoute path="/learn" component={Learn} />
+            <PrivateRoute path="/library" component={Library} />
+            <PrivateRoute path="/other-link" component={OtherLink} />
+
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" />
           </Switch>

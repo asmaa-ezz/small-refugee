@@ -4,7 +4,7 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import styled from "styled-components";
-import { Login } from "../../store/action/actionCreator/actionAuth";
+import { Login } from "../../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
   margin-top: 5%;

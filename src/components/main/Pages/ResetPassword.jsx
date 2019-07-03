@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
-import { resetPasswordSendEmail } from "../../store/action/actionCreator/actionAuth";
+import { resetPasswordSendEmail } from "../../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
   margin-top: 5%;
