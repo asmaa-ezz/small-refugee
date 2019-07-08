@@ -11,14 +11,19 @@ const UserInfoPage = ({ history, image, fullName, type }) => {
         textAlign: "center"
       }}
     >
-      <div className="user-info">
-        <img src={image} alt="" />
+      <div className="user-info" style={{ padding: "20px 0 40px 0" }}>
+        <img
+          src={image}
+          alt=""
+          style={{ borderRadius: "50%", width: "60px", marginBottom: "10px" }}
+        />
         <p
           style={{
             fontFamily: "Cairo, sans-serif",
             fontSize: "12px",
             fontWeight: 800,
-            color: PURPLE
+            color: PURPLE,
+            marginBottom: "10px"
           }}
         >
           {fullName}
@@ -41,25 +46,25 @@ const UserInfoPage = ({ history, image, fullName, type }) => {
         history={history}
         text="شارك أفكارك"
         path="/"
-        isFocus={true}
+        isFocus={history.location.pathname === "/"}
       />
       <ButtonListUserInfo
         history={history}
         text="تعلم"
         path="/learn"
-        isFocus={false}
+        isFocus={history.location.pathname === "/learn"}
       />
       <ButtonListUserInfo
         history={history}
         text="المكتبة"
         path="/library"
-        isFocus={false}
+        isFocus={history.location.pathname === "/library"}
       />
       <ButtonListUserInfo
         history={history}
         text="روابط أخرى"
         path="/other-link"
-        isFocus={false}
+        isFocus={history.location.pathname === "/other-link"}
       />
     </div>
   );

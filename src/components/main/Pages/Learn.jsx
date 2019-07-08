@@ -4,9 +4,13 @@ import ListSubject from "../Common/ListSubject";
 import ListSubjects from "../Common/ListSubjects";
 import Units from "../Common/Units";
 import Lesson from "../Common/Lesson";
+import UserInfoPage from "../../common/UserInfoPage";
 
 class Learn extends Component {
   render() {
+    const { history } = this.props;
+    const { userImage, fullName, stage } = this.props.dataStitic;
+
     console.log(this.props.history);
     const path = this.props.location.pathname.split("/");
     const id = path[path.length - 1];
@@ -33,7 +37,12 @@ class Learn extends Component {
       <div className="container">
         <div className="row">
           <div className="col-2">
-            <StaticList click="learn" />
+            <UserInfoPage
+              history={history}
+              image={userImage}
+              fullName={fullName}
+              type={stage}
+            />
           </div>
           <div className="col-10">{render}</div>
         </div>

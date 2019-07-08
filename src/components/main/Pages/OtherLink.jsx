@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import StaticList from "../Common/StaticList";
+import UserInfoPage from "../../common/UserInfoPage";
 
 class OtherLink extends Component {
   render() {
+    const { history } = this.props;
+    const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
         <div className="row">
           <div className="col-2">
-            <StaticList click="other" />
+            <UserInfoPage
+              history={history}
+              image={userImage}
+              fullName={fullName}
+              type={stage}
+            />
           </div>
           <div className="col-6" />
           <div className="col-4" />

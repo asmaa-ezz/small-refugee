@@ -8,17 +8,17 @@ import UserInfoPage from "../../common/UserInfoPage";
 class Share extends Component {
   render() {
     const { history } = this.props;
+    const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
         <div className="row">
           <div className="col-2">
-            <StaticList click="share" />
-            {/* <UserInfoPage
+            <UserInfoPage
               history={history}
-              image=""
-              fullName="أسماء المدهون"
-              type="طالب الصف الأول"
-            /> */}
+              image={userImage}
+              fullName={fullName}
+              type={stage}
+            />
           </div>
           <div className="col-6">
             <CreatPost />
