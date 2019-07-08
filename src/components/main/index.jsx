@@ -17,6 +17,7 @@ import OtherLink from "./Pages/OtherLink";
 
 class Main extends Component {
   render() {
+    const { dataStitic } = this.props;
     return (
       <div
         style={{
@@ -27,7 +28,12 @@ class Main extends Component {
       >
         <div className="container">
           <Switch>
-            <PrivateRoute exact path="/" component={Share} />
+            <PrivateRoute
+              exact
+              path="/"
+              component={Share}
+              dataStitic={dataStitic}
+            />
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/sign-out" component={SignOut} />
@@ -36,10 +42,22 @@ class Main extends Component {
             <PrivateRoute path="/posts/:title" component={SubjectPost} />
             <PrivateRoute path="/username/:username" component={UserProfile} />
             {/* Pages */}
-            <PrivateRoute path="/learn" component={Learn} />
+            <PrivateRoute
+              path="/learn"
+              component={Learn}
+              dataStitic={dataStitic}
+            />
             <PrivateRoute path="/learn/:id" component={Learn} />
-            <PrivateRoute path="/library" component={Library} />
-            <PrivateRoute path="/other-link" component={OtherLink} />
+            <PrivateRoute
+              path="/library"
+              component={Library}
+              dataStitic={dataStitic}
+            />
+            <PrivateRoute
+              path="/other-link"
+              component={OtherLink}
+              dataStitic={dataStitic}
+            />
 
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" />

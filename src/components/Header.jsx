@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import styled from "styled-components";
-import {
-  DecodeToken,
-  GetDataUser
-} from "../store/action/actionCreator/actionAuth";
 import { PURPLE, GREEN } from "../constant/Color";
 import Logo from "./common/Logo";
 import ButtonBorde from "./common/ButtonBorde";
@@ -23,17 +18,12 @@ const HeaderPage = styled.div`
 `;
 
 class Header extends Component {
-  componentDidMount() {
-    this.props.GetDataUser();
-  }
-
   render() {
-    console.log(this.props);
-
+    const { isLogin } = this.props;
     return (
       <HeaderPage>
         <div className="container">
-          {this.props.user ? (
+          {localStorage.getItem("token") ? (
             <div className="row">
               <div className="col-2 text-right">
                 <Logo />
@@ -57,10 +47,8 @@ class Header extends Component {
               <div className="col-4" style={{ display: "flex" }}>
                 {/* <span> */}
                 <UserInfoHeader
-                  image={this.props.user.avatar}
-                  fullName={`${this.props.user.first_name} ${
-                    this.props.user.last_name
-                  }`}
+                  image={this.props.dataStitic.userImage}
+                  fullName={this.props.dataStitic.fullName}
                   type="طالب"
                 />
                 {/* </span> */}
@@ -107,19 +95,4 @@ class Header extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    GetDataUser: () => dispatch(GetDataUser())
-  };
-};
-
-const mapStatusToProps = state => {
-  return {
-    user: state.auth.user
-  };
-};
-
-export default connect(
-  mapStatusToProps,
-  mapDispatchToProps
-)(Header);
+export default Header;
