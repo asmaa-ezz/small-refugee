@@ -16,7 +16,7 @@ class StaticList extends Component {
     return (
       <React.Fragment>
         <Card className="profile">
-          {this.props.user.avatar && (
+          {this.props.user && (
             <img
               src={this.props.user.avatar}
               alt="img"
@@ -24,12 +24,12 @@ class StaticList extends Component {
             />
           )}
           <h6 className="">
-            {this.props.user.first_name &&
+            {this.props.user &&
               `${this.props.user.first_name} ${this.props.user.last_name}`}
           </h6>
           <button
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ borderRadius: "30px" }}
           >
             <span className="text small">طالب صف الأول</span>
@@ -39,7 +39,7 @@ class StaticList extends Component {
         <div className="list" style={{ marginTop: "10%" }}>
           <button
             type="button"
-            class={`btn btn-block ${
+            className={`btn btn-block ${
               click === "share" ? "btn-primary" : "btn-outline-primary"
             }`}
             onClick={() => {
@@ -50,7 +50,7 @@ class StaticList extends Component {
           </button>
           <button
             type="button"
-            class={`btn btn-block ${
+            className={`btn btn-block ${
               click === "learn" ? "btn-primary" : "btn-outline-primary"
             }`}
             onClick={() => {
@@ -61,7 +61,7 @@ class StaticList extends Component {
           </button>
           <button
             type="button"
-            class={`btn btn-block ${
+            className={`btn btn-block ${
               click === "library" ? "btn-primary" : "btn-outline-primary"
             }`}
             onClick={() => {
@@ -72,7 +72,7 @@ class StaticList extends Component {
           </button>
           <button
             type="button"
-            class={`btn btn-block ${
+            className={`btn btn-block ${
               click === "other" ? "btn-primary" : "btn-outline-primary"
             }`}
             onClick={() => {

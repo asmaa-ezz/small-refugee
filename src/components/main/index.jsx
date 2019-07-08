@@ -37,6 +37,7 @@ class Main extends Component {
             <PrivateRoute path="/username/:username" component={UserProfile} />
             {/* Pages */}
             <PrivateRoute path="/learn" component={Learn} />
+            <PrivateRoute path="/learn/:id" component={Learn} />
             <PrivateRoute path="/library" component={Library} />
             <PrivateRoute path="/other-link" component={OtherLink} />
 

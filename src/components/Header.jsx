@@ -6,68 +6,100 @@ import {
   DecodeToken,
   GetDataUser
 } from "../store/action/actionCreator/actionAuth";
+import { PURPLE, GREEN } from "../constant/Color";
+import Logo from "./common/Logo";
+import ButtonBorde from "./common/ButtonBorde";
+import Icon from "./common/Icon";
+import UserInfoHeader from "./common/UserInfoHeader";
+
+import Bell from "../assets/image/Bell.png";
+import Message from "../assets/image/Message.png";
 
 const HeaderPage = styled.div`
   width: 100%;
-  background-color: rgb(138, 43, 226);
-  height: 10vh;
+  background-color: ${PURPLE};
+  height: 12vh;
   padding-top: 2vh;
 `;
-
-const link = {
-  color: "#fff",
-  marginLeft: "5%"
-};
 
 class Header extends Component {
   componentDidMount() {
     this.props.GetDataUser();
   }
 
-  handleUpperCase = str => {
-    return str.toUpperCase();
-  };
-
   render() {
+    console.log(this.props);
+
     return (
       <HeaderPage>
         <div className="container">
           {this.props.user ? (
             <div className="row">
-              <div class="col-2 text-right">
-                <Link to="/" style={{ fontSize: "1.5em", color: "#fff" }}>
-                  Small Refugee
-                </Link>
+              <div className="col-2 text-right">
+                <Logo />
               </div>
-              <div class="col-6">
+
+              <div className="col-6" style={{ paddingTop: "6px" }}>
                 <input
                   type="serch"
                   className="form-control"
                   placeholder="بإمكانك البحث من هنا"
-                  style={{ width: "100%" }}
+                  style={{
+                    height: "6vh",
+                    width: "100%",
+                    color: PURPLE,
+                    fontFamily: "Cairo, sans-serif",
+                    fontSize: "11px"
+                  }}
                 />
               </div>
-              <div class="col-4">
-                <Link to="/profile" style={link}>
-                  {this.props.user.first_name &&
-                    `${this.props.user.first_name} ${
-                      this.props.user.last_name
-                    }`}
-                </Link>
-                <Link to="/sign-out" style={link}>
-                  تسجيل الخروج
-                </Link>
+
+              <div className="col-4" style={{ display: "flex" }}>
+                {/* <span> */}
+                <UserInfoHeader
+                  image={this.props.user.avatar}
+                  fullName={`${this.props.user.first_name} ${
+                    this.props.user.last_name
+                  }`}
+                  type="طالب"
+                />
+                {/* </span> */}
+
+                <Icon source={Message} text="Message" number="4" />
+                <Icon source={Bell} text="Bell" number="3" />
+
+                <ButtonBorde
+                  height={"40px"}
+                  path="/sign-out"
+                  text="تسجيل الخروج"
+                  padding="5px 20px"
+                  marginTop="4px"
+                />
               </div>
             </div>
           ) : (
-            <React.Fragment>
-              <Link to="/sign-in" style={link}>
-                تسجيل الدخول
-              </Link>
-              <Link to="/sign-up" style={link}>
-                إنشاء حساب
-              </Link>
-            </React.Fragment>
+            <div className="row">
+              <div className="col-2 text-right">
+                <Logo />
+              </div>
+              <div className="col-10 text-right" style={{ marginTop: "12px" }}>
+                <Link
+                  to="/sign-in"
+                  style={{
+                    color: "#fff",
+                    marginLeft: "30px",
+                    fontFamily: "Cairo, sans-serif"
+                  }}
+                >
+                  تسجيل الدخول
+                </Link>
+                <ButtonBorde
+                  path="/sign-up"
+                  text="التسجيل"
+                  padding="5px 30px"
+                />
+              </div>
+            </div>
           )}
         </div>
       </HeaderPage>

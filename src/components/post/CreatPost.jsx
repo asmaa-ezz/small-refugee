@@ -45,7 +45,7 @@ class CreatPost extends Component {
           >
             <div className="form-group">
               <div className="user">
-                {this.props.user.avatar && (
+                {this.props.user && (
                   <img
                     src={this.props.user.avatar}
                     alt="img"
@@ -53,7 +53,7 @@ class CreatPost extends Component {
                   />
                 )}
                 <span>
-                  {this.props.user.first_name &&
+                  {this.props.user &&
                     `${this.props.user.first_name} ${
                       this.props.user.last_name
                     }`}

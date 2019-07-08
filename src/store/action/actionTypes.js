@@ -17,3 +17,8 @@ export const GET_POSTS = 'GET_POSTS';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 
+
+// Action of Lesson
+
+export const GET_UNITS = 'GET_UNITS';
+export const GET_LESSONS = 'GET_LESSONS';
