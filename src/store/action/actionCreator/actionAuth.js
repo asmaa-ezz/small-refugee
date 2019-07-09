@@ -22,8 +22,6 @@ export const Login = dataUser => dispatch => {
       return res.json()
     })
     .then(dataUser => {
-      console.log('dataUser action ', dataUser);
-
       if (dataUser.error) {
         const error = JSON.stringify(dataUser.error)
         dispatch({
@@ -33,7 +31,7 @@ export const Login = dataUser => dispatch => {
       } else {
         const { token: jwt } = dataUser;
         localStorage.setItem("token", jwt);
-        // window.location = '/';
+        window.location = '/';
         dispatch({
           type: SIGNIN_SUCCESS,
           payload: dataUser

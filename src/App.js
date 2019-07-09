@@ -5,13 +5,6 @@ import Header from "./components/Header";
 import Main from "./components/main";
 import { GetDataUser } from './store/action/actionCreator/actionAuth'
 
-const dataStitic = {
-  userImage:
-    "https://www.whittierfirstday.org/wp-content/uploads/default-user-image-e1501670968910.png",
-  fullName: "أسماء المدهون",
-  stage: "طالب صف أول"
-};
-
 class App extends Component {
   componentDidMount() {
     this.props.GetDataUser();
@@ -23,8 +16,8 @@ class App extends Component {
       fullName: `${this.props.user.first_name} ${this.props.user.last_name}`,
       stage: "طالب صف أول"
     } : dataStitic = null
-
     return (
+
       <React.Fragment>
         {localStorage.getItem("token") ?
           this.props.user ? (
