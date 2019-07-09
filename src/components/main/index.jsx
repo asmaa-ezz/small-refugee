@@ -9,8 +9,9 @@ import SubjectPost from "./Pages/SubjectPost";
 import UserProfile from "./Pages/UserProfile";
 import Share from "./Pages/Share";
 import NotFound from "./Pages/NotFound";
-import { PrivateRoute } from "../PrivateRoute";
+import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
+import Home from "./Pages/Home";
 import Learn from "./Pages/Learn";
 import UnitsPage from "./Pages/UnitsPage";
 import LessonPage from "./Pages/LessonPage";
@@ -30,16 +31,17 @@ class Main extends Component {
       >
         <div className="container">
           <Switch>
+            <PublicRoute exact path="/home" component={Home} />
             <PrivateRoute
               exact
               path="/"
               component={Share}
               dataStitic={dataStitic}
             />
-            <Route path="/sign-in" component={SignIn} />
-            <Route path="/sign-up" component={SignUp} />
+            <PublicRoute path="/sign-in" component={SignIn} />
+            <PublicRoute path="/sign-up" component={SignUp} />
             <Route path="/sign-out" component={SignOut} />
-            <Route path="/reset-password" component={ResetPassword} />
+            <PublicRoute path="/reset-password" component={ResetPassword} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/posts/:title" component={SubjectPost} />
             <PrivateRoute path="/username/:username" component={UserProfile} />

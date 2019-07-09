@@ -22,15 +22,18 @@ export const Login = dataUser => dispatch => {
       return res.json()
     })
     .then(dataUser => {
+      console.log('dataUser action ', dataUser);
+
       if (dataUser.error) {
+        const error = JSON.stringify(dataUser.error)
         dispatch({
           type: SIGNIN_ERROR,
-          error: dataUser.error
+          error: error
         })
       } else {
         const { token: jwt } = dataUser;
         localStorage.setItem("token", jwt);
-        window.location = '/';
+        // window.location = '/';
         dispatch({
           type: SIGNIN_SUCCESS,
           payload: dataUser
@@ -62,11 +65,13 @@ export const Register = data => dispatch => {
 
     .then(dataUser => {
       if (dataUser.error) {
+        const error = JSON.stringify(dataUser.error)
         dispatch({
           type: SIGNUP_ERROR,
-          error: dataUser.error
+          error: error
         })
       } else {
+
         const { token: jwt } = dataUser;
         localStorage.setItem("token", jwt);
         window.location = '/';

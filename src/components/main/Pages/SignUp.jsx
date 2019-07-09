@@ -7,33 +7,33 @@ import styled from "styled-components";
 import { Register } from "../../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
-  margin-top: 5%;
+  margin-top: 1%;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 5%;
+  padding: 1%;
   outline: none;
 `;
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
-    .email("")
+    .email("عنوان البريد الإلكتروني غير صالح")
     .required("الحقل مطلوب"),
   password: Yup.string()
     .required("الحقل مطلوب")
-    .max(20)
-    .min(1),
+    .max(20, "يجب أن يكون كلمة المرور مكون من 20 حرف على الأكثر")
+    .min(3, "يجب أن يكون كلمة المرور مكون من 3 حروف على الأقل"),
   username: Yup.string()
     .required("الحقل مطلوب")
-    .max(20)
-    .min(3),
+    .max(20, "يجب أن يكون اسم المستخدم مكون من 20 حرف على الأكثر")
+    .min(3, "يجب أن يكون اسم المستخدم مكون من 3 حروف على الأقل"),
   first_name: Yup.string()
     .required("الحقل مطلوب")
-    .max(20)
-    .min(1),
+    .max(20, "يجب أن يكون الاسم الأول مكون من 20 حرف على الأكثر")
+    .min(1, "يجب أن يكون الاسم الأول مكون من 1 حرف على الأقل"),
   last_name: Yup.string()
     .required("الحقل مطلوب")
-    .max(20)
-    .min(1)
+    .max(20, "يجب أن يكون الاسم الأخير مكون من 20 حرف على الأكثر")
+    .min(1, "يجب أن يكون الاسم الأخير مكون من 1 حرف على الأقل")
 });
 
 class SignUp extends Component {
@@ -43,10 +43,26 @@ class SignUp extends Component {
 
   render() {
     if (this.props.authError) {
+      let massege = "";
+      const data = JSON.parse(this.props.authError);
+      console.log("data", data, data.username);
+
+      if (data.email) {
+        massege = data.email[0].includes("email already exists")
+          ? "عنوان البريد الالكتروني موجود سابقا"
+          : data.email;
+      } else if (data.username) {
+        massege = data.username[0].includes("username already exists")
+          ? "إسم المستخدم موجود سابقا"
+          : data.username;
+      } else {
+        massege = data;
+      }
+
       Swal.fire({
         type: "error",
-        title: "Error!",
-        text: this.props.authError
+        title: "خطأ!",
+        text: massege
       });
     }
     return (
@@ -69,7 +85,7 @@ class SignUp extends Component {
               <label htmlFor="email">عنوان البريد الالكتروني: </label>
               <Field
                 type="email"
-                placeholder="أدحل البريد الالكتروني :"
+                placeholder="أدحل البريد الالكتروني"
                 onChange={props.handleChange}
                 name="email"
                 value={props.values.email}

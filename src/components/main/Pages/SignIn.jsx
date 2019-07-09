@@ -7,21 +7,21 @@ import styled from "styled-components";
 import { Login } from "../../../store/action/actionCreator/actionAuth";
 
 const FormStyle = styled.form`
-  margin-top: 5%;
+  margin-top: 3%;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 5%;
+  padding: 1%;
   outline: none;
 `;
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
-    .email()
-    .required(),
+    .email("عنوان البريد الإلكتروني غير صالح")
+    .required("الحقل مطلوب"),
   password: Yup.string()
-    .required()
-    .max(20)
-    .min(1)
+    .required("الحقل مطلوب")
+    .max(20, "يجب أن يكون كلمة المرور مكون من 20 حرف على الأكثر")
+    .min(3, "يجب أن يكون كلمة المرور مكون من 3 حروف على الأقل")
 });
 
 class SignIn extends Component {
@@ -34,10 +34,20 @@ class SignIn extends Component {
 
   render() {
     if (this.props.authError) {
+      let massege = "";
+      const data = JSON.parse(this.props.authError);
+      if (
+        data.includes("no user with this email") ||
+        data.includes("authenticate")
+      ) {
+        massege = "عنوان البريد الإلكتورني أو كلمة المرور خطأ";
+      } else {
+        massege = data;
+      }
       Swal.fire({
         type: "error",
-        title: "Error!",
-        text: this.props.authError
+        title: "خطأ!",
+        text: massege
       });
     }
     return (

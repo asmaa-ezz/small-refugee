@@ -8,9 +8,20 @@ export const PrivateRoute = ({ component: Component, dataStitic, ...rest }) => (
       localStorage.getItem("token") ? (
         <Component {...props} dataStitic={dataStitic} />
       ) : (
-        <Redirect
-          to={{ pathname: "/sign-in", state: { from: props.location } }}
-        />
+        <Redirect to={{ pathname: "/home", state: { from: props.location } }} />
+      )
+    }
+  />
+);
+
+export const PublicRoute = ({ component: Component, dataStitic, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      !localStorage.getItem("token") ? (
+        <Component {...props} dataStitic={dataStitic} />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
       )
     }
   />
