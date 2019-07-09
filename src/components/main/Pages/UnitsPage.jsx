@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import UserInfoPage from "../../common/UserInfoPage";
-import ListSubjects from "../Common/ListSubjects";
+import Units from "../Common/Units";
 
-class Learn extends Component {
+class UnitsPage extends Component {
   render() {
-    const { history } = this.props;
-    const { userImage, fullName, stage } = this.props.dataStitic;
+    const { history, match } = this.props;
+    const { id } = match.params;
 
+    const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
         <div className="row">
@@ -19,7 +20,7 @@ class Learn extends Component {
             />
           </div>
           <div className="col-10">
-            <ListSubjects history={history} />
+            <Units id={id} history={history} />
           </div>
         </div>
       </div>
@@ -27,4 +28,4 @@ class Learn extends Component {
   }
 }
 
-export default Learn;
+export default UnitsPage;

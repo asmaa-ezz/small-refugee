@@ -12,6 +12,8 @@ import NotFound from "./Pages/NotFound";
 import { PrivateRoute } from "../PrivateRoute";
 
 import Learn from "./Pages/Learn";
+import UnitsPage from "./Pages/UnitsPage";
+import LessonPage from "./Pages/LessonPage";
 import Library from "./Pages/Library";
 import OtherLink from "./Pages/OtherLink";
 
@@ -43,11 +45,22 @@ class Main extends Component {
             <PrivateRoute path="/username/:username" component={UserProfile} />
             {/* Pages */}
             <PrivateRoute
+              exact
               path="/learn"
               component={Learn}
               dataStitic={dataStitic}
             />
-            <PrivateRoute path="/learn/:id" component={Learn} />
+            <PrivateRoute
+              exact
+              path="/learn/:id"
+              component={UnitsPage}
+              dataStitic={dataStitic}
+            />
+            <PrivateRoute
+              path="/learn/unit/:id"
+              component={LessonPage}
+              dataStitic={dataStitic}
+            />
             <PrivateRoute
               path="/library"
               component={Library}

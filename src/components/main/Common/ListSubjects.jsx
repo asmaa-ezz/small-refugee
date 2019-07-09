@@ -1,15 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GetAllSubject } from "../../../store/action/actionCreator/actionPost";
 import styled from "styled-components";
 
-const DivSubject = styled.div`
-  width: 40%;
-  height: 10vh;
-  background: #fff;
-  margin: 10px;
-  padding: 10px;
-  cursor: pointer;
+import { GetAllSubject } from "../../../store/action/actionCreator/actionPost";
+import CardLearn from "../../common/CardLearn";
+import ButtonBorde from "../../common/ButtonBorde";
+import { CARDTITLE } from "../../../constant/Color";
+
+const Div = styled.div`
+  background-color: ${CARDTITLE};
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: Cairo, sans-serif;
+  color: #fff;
+  height: 75px;
+  margin-bottom: 20px;
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Title = styled.div`
+  font-size: 25px;
+  font-weight: 700;
+`;
+
+const Text = styled.div`
+  font-size: 12px;
 `;
 
 class ListSubjects extends Component {
@@ -17,19 +39,41 @@ class ListSubjects extends Component {
     this.props.GetAllSubject();
   }
 
-  handleSubject = id => {
-    const { history } = this.props;
-    history.push(`/learn/${id}`);
-  };
   render() {
     const subjects = this.props.subject ? (
-      this.props.subject.map(item => {
-        return (
-          <DivSubject key={item.id} onClick={() => this.handleSubject(item.id)}>
-            <h1>{item.title}</h1>
-          </DivSubject>
-        );
-      })
+      <div>
+        <Div>
+          <Body>
+            <Title>المواد الدراسية للصف الرابع الإبتدائي</Title>
+          </Body>
+          <Body>
+            <ButtonBorde
+              path="/"
+              text={
+                true ? "شهادة الصف الرابع غير متاحة" : "شهادة الصف الرابع متاحة"
+              }
+              height={"40px"}
+              padding="5px 20px"
+              marginTop="4px"
+              backgroundColor={CARDTITLE}
+            />
+          </Body>
+        </Div>
+        {this.props.subject.map(item => {
+          return (
+            <CardLearn
+              key={item.id}
+              id={item.id}
+              history={this.props.history}
+              title={item.title}
+              stage={"الصف الرابع الإبتدائي"}
+              staticDetalis={"الوحدة الحالية"}
+              details={"الوحدة الأولى"}
+              achieve={90}
+            />
+          );
+        })}
+      </div>
     ) : (
       <div className="spinner-border text-primary" role="status">
         <span className="sr-only">Loading...</span>

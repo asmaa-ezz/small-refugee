@@ -52,7 +52,7 @@ const UserInfoPage = ({ history, image, fullName, type }) => {
         history={history}
         text="تعلم"
         path="/learn"
-        isFocus={history.location.pathname === "/learn"}
+        isFocus={history.location.pathname.includes("/learn")}
       />
       <ButtonListUserInfo
         history={history}

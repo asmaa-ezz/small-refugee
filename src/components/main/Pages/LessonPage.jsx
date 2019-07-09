@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import UserInfoPage from "../../common/UserInfoPage";
-import ListSubjects from "../Common/ListSubjects";
+import Lesson from "../Common/Lesson";
 
-class Learn extends Component {
+class LessonPage extends Component {
   render() {
     const { history } = this.props;
     const { userImage, fullName, stage } = this.props.dataStitic;
-
     return (
       <div className="container">
         <div className="row">
@@ -19,7 +18,7 @@ class Learn extends Component {
             />
           </div>
           <div className="col-10">
-            <ListSubjects history={history} />
+            <Lesson id={1} />
           </div>
         </div>
       </div>
@@ -27,4 +26,4 @@ class Learn extends Component {
   }
 }
 
-export default Learn;
+export default LessonPage;
