@@ -4,7 +4,9 @@ import Lesson from "../Common/Lesson";
 
 class LessonPage extends Component {
   render() {
-    const { history } = this.props;
+    const { history, match } = this.props;
+    const { id } = match.params;
+
     const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
@@ -18,7 +20,7 @@ class LessonPage extends Component {
             />
           </div>
           <div className="col-10">
-            <Lesson id={1} />
+            <Lesson id={id} />
           </div>
         </div>
       </div>

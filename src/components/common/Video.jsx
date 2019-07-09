@@ -5,15 +5,35 @@ class Video extends Component {
   player = {};
   state = {
     video: {
-      src: "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
-      poster:
-        "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      src:
+        "https://small-refugee.herokuapp.com/media/videos/CGI_Animated_Short_Film-_Watermelon_A_Cautionary_Tale_by_Kefei_Li__Connie_Qin_He__ttE1AUh.mp4",
+      poster: ""
     }
   };
 
   onPlayerReady(player) {
     console.log("Player is ready: ", player);
     this.player = player;
+  }
+
+  onVideoPlay(duration) {
+    console.log("Video played at: ", duration);
+  }
+
+  onVideoPause(duration) {
+    console.log("Video paused at: ", duration);
+  }
+
+  onVideoTimeUpdate(duration) {
+    console.log("Time updated: ", duration);
+  }
+
+  onVideoSeeking(duration) {
+    console.log("Video seeking: ", duration);
+  }
+
+  onVideoSeeked(from, to) {
+    console.log(`Video seeked from ${from} to ${to}`);
   }
 
   onVideoEnd() {
@@ -27,9 +47,14 @@ class Video extends Component {
           controls={true}
           src={this.state.video.src}
           poster={this.state.video.poster}
-          width="720"
-          height="420"
+          width="663.75"
+          height="285"
           onReady={this.onPlayerReady.bind(this)}
+          onPlay={this.onVideoPlay.bind(this)}
+          onPause={this.onVideoPause.bind(this)}
+          onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
+          onSeeking={this.onVideoSeeking.bind(this)}
+          onSeeked={this.onVideoSeeked.bind(this)}
           onEnd={this.onVideoEnd.bind(this)}
         />
       </div>

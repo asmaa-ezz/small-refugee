@@ -25,7 +25,7 @@ class Main extends Component {
         style={{
           background: "rgba(204, 204, 204, 0.2)",
           paddingTop: "5vh",
-          minHeight: "90vh"
+          minHeight: "85vh"
         }}
       >
         <div className="container">

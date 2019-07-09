@@ -43,8 +43,6 @@ export const GetLessons = id => dispatch => {
   })
     .then(res => res.json())
     .then(lessons => {
-      console.log('0000', lessons);
-
       dispatch({
         type: GET_LESSONS,
         payload: lessons
