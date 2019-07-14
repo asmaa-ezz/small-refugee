@@ -14,19 +14,26 @@ const ButtonBorde = ({
     <React.Fragment>
       <Link
         to={path}
-        style={{
+       
+      >
+        <div  style={{
           backgroundColor: backgroundColor || PURPLE,
-          height: height || "auto",
           marginTop: marginTop || "auto",
-          color: "#fff",
           border: "1px solid #fff",
+          // textAlign: "center",
+          borderRadius: "5px",
+          // fontFamily: "Cairo, sans-serif"
+        }} > 
+        <div  style={{
+          // marginTop: marginTop || "auto",
+          color: "#fff",
           padding: padding,
           textAlign: "center",
-          borderRadius: "5px",
           fontFamily: "Cairo, sans-serif"
-        }}
-      >
-        {text}
+        }} > {text}</div>
+        
+         </div>
+       
       </Link>
     </React.Fragment>
   );

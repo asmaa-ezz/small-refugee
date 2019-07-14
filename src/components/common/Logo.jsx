@@ -5,24 +5,28 @@ import { GREEN } from "../../constant/Color";
 class Logo extends Component {
   render() {
     return (
-      <React.Fragment>
+      <div >
         <div
           style={{
             backgroundColor: GREEN,
             color: "#fff",
-            height: "16.13px",
+            // height: "16.13px",
             width: "54.78px",
             fontSize: "7px",
             textAlign: "center",
             borderRadius: "10px",
-            position: "relative",
-            right: "107px",
+            // position: "relative",
+            // right: "107px",
             fontFamily: "Cairo, sans-serif",
-            paddingTop: "4px"
+            padding: "3px",
+            float: 'left'
           }}
         >
           نسخة تجربية
         </div>
+        <div  style={{
+                display: 'inline-block'
+          }}>
         <Link
           to="/"
           style={{
@@ -32,8 +36,8 @@ class Logo extends Component {
           }}
         >
           Small Refugee
-        </Link>
-      </React.Fragment>
+        </Link></div>
+        </div>
     );
   }
 }

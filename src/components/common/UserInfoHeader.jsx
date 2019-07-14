@@ -20,21 +20,25 @@ const UserInfoHeader = ({ fullName, type, image }) => {
           marginLeft: "5px"
         }}
       />
-      <p
-        style={{
+      <div style={{
           display: "inline-block",
+        
+        }}>
+      <div
+        style={{
+          // display: "inline-block",
           fontFamily: "Cairo, sans-serif",
           fontSize: "12px",
           fontWeight: 700,
           color: "#fff",
-          position: "relative"
+          // position: "relative"
         }}
       >
         {fullName}
-      </p>
+      </div>
       <div
         style={{
-          display: "inline-block",
+          display: "table-caption",
           backgroundColor: GREEN,
           color: "#fff",
           height: "12.07px",
@@ -42,14 +46,14 @@ const UserInfoHeader = ({ fullName, type, image }) => {
           fontSize: "9px",
           textAlign: "center",
           borderRadius: "10px",
-          position: "absolute",
-          bottom: "6px",
-          right: "57px",
+          // position: "absolute",
+          // bottom: "6px",
+          // right: "57px",
           fontFamily: "Cairo, sans-serif"
         }}
       >
         {type}
-      </div>
+      </div></div>
     </Link>
   );
 };
