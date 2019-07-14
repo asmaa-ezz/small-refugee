@@ -4,7 +4,7 @@ class ListSubject extends Component {
   render() {
     return (
       <React.Fragment>
-        <div style={{ background: "#fff", height: "40vh" }} />
+        <div style={{ background: "#fff", height: "85px" }} />
       </React.Fragment>
     );
   }

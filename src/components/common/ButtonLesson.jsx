@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { OpenLessonClikButton } from "../../store/action/actionCreator/actionLesson";
 import { GREEN, BORDER } from "../../constant/Color";
 
 const Div = styled.div`
@@ -36,18 +38,40 @@ const focusText = {
   color: "#fff"
 };
 
-const ButtonLesson = ({ isFocus, text, handleLessonVido, data }) => {
-  return (
-    <Div
-      style={isFocus ? focus : null}
-      onClick={() => {
-        handleLessonVido(data);
-      }}
-    >
-      <Circle />
-      <Text style={isFocus ? focusText : null}>{text}</Text>
-    </Div>
-  );
-};
+class ButtonLesson extends Component {
+  state = {
+    isFocus: false
+  };
+  render() {
+    const { data, text, isView, handleButton } = this.props;
+    const { isFocus } = this.state;
+    return (
+      <Div
+        style={(isFocus && focus) || (isView && focus)}
+        onClick={() => {
+          handleButton(data);
+          // this.props.OpenLessonClikButton(data.link);
+          this.setState({ isFocus: true });
+        }}
+      >
+        <Circle />
+        <Text style={(isFocus && focusText) || (isView && focusText)}>
+          {text}
+        </Text>
+      </Div>
+    );
+  }
+}
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     OpenLessonClikButton: data => dispatch(OpenLessonClikButton(data))
+//   };
+// };
 
 export default ButtonLesson;
+
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(ButtonLesson);

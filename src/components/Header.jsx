@@ -13,8 +13,8 @@ import Message from "../assets/image/Message.png";
 const HeaderPage = styled.div`
   width: 100%;
   background-color: ${PURPLE};
-  height: 12vh;
-  padding-top: 2vh;
+  height: 60px;
+  padding-top: 7px;
 `;
 
 class Header extends Component {
@@ -35,7 +35,7 @@ class Header extends Component {
                   className="form-control"
                   placeholder="بإمكانك البحث من هنا"
                   style={{
-                    height: "6vh",
+                    height: "30px",
                     width: "100%",
                     color: PURPLE,
                     fontFamily: "Cairo, sans-serif",

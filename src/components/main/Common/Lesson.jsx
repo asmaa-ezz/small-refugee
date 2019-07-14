@@ -7,7 +7,11 @@ import ButtonBorde from "../../common/ButtonBorde";
 import ButtonLesson from "../../common/ButtonLesson";
 
 import Video from "../../common/Video";
-import { GetLessons } from "../../../store/action/actionCreator/actionLesson";
+import VideoJs from "../../common/VideoJs";
+import {
+  GetLessons,
+  OpenLessonClikButton
+} from "../../../store/action/actionCreator/actionLesson";
 import { CARDTITLE, TURQUOISE } from "../../../constant/Color";
 
 const Div = styled.div`
@@ -39,13 +43,26 @@ const Text = styled.div`
 
 class Lesson extends Component {
   state = {
-    video:
-      "https://small-refugee.herokuapp.com/media/videos/CGI_Animated_Short_Film-_Watermelon_A_Cautionary_Tale_by_Kefei_Li__Connie_Qin_He__ttE1AUh.mp4"
+    videos: [],
+    link:
+      "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
   };
   componentDidMount() {
     this.props.GetLessons(this.props.id);
   }
+
   render() {
+    console.log("qqqqq", this.state.videos);
+    const videoJsOptions = {
+      controls: true,
+      sources: [
+        {
+          src: this.state.link,
+          type: "video/mp4"
+        }
+      ]
+    };
+
     const render = this.props.lessons ? (
       <div>
         <Div>
@@ -73,14 +90,21 @@ class Lesson extends Component {
         </Div>
         <div className="row">
           <div className="col-3" style={{ paddingBottom: "10px" }}>
-            {this.props.lessons.lesson_set.map(item => {
+            {this.props.lessons.video_set.map(item => {
               return (
                 <ButtonLesson
-                  handleLessonVido={data => {
-                    this.setState({ video: data.video });
+                  handleButton={data => {
+                    const dataOnes = this.state.videos.filter(item => {
+                      return item.id === data.id;
+                    });
+                    dataOnes.length < 1 &&
+                      this.setState({
+                        videos: [...this.state.videos, data],
+                        id: data.id
+                      });
                   }}
                   data={item}
-                  isFocus={item.id === 1 ? true : false}
+                  isView={item.isView}
                   key={item.id}
                   text="عنوان الدرس"
                 />
@@ -88,7 +112,12 @@ class Lesson extends Component {
             })}
           </div>
           <div className="col-9">
-            <Video videoURL={this.state.video} />
+            {this.state.videos &&
+              this.state.videos.map(item => {
+                if (item.id === this.state.id) {
+                  return <Video url={item.link} />;
+                } else return null;
+              })}
             <Div
               style={{
                 backgroundColor: TURQUOISE,
@@ -147,6 +176,7 @@ class Lesson extends Component {
 const mapStateToProps = state => {
   return {
     lessons: state.lesson.lessons
+    // vidoOpen: state.lesson.vidoOpen
   };
 };
 

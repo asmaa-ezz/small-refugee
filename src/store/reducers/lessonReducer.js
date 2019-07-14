@@ -1,4 +1,5 @@
 const initState = {
+  vidoOpen: ''
 };
 
 const lessonReducer = (state = initState, action) => {
@@ -12,6 +13,12 @@ const lessonReducer = (state = initState, action) => {
       return {
         ...state,
         lessons: action.payload,
+        vidoOpen: action.payload.video_set[0].link
+      }
+    case 'START_LESSON':
+      return {
+        ...state,
+        vidoOpen: action.payload
       }
     default:
       return state;

@@ -1,4 +1,4 @@
-import { GET_UNITS, GET_LESSONS } from '../actionTypes';
+import { GET_UNITS, GET_LESSONS, START_LESSON } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -43,6 +43,12 @@ export const GetLessons = id => dispatch => {
   })
     .then(res => res.json())
     .then(lessons => {
+      lessons.lesson_set.map(item => {
+        return (
+          item.isView = false
+        )
+      })
+
       dispatch({
         type: GET_LESSONS,
         payload: lessons
@@ -50,3 +56,10 @@ export const GetLessons = id => dispatch => {
     })
 };
 
+export const OpenLessonClikButton = data => dispatch => {
+  dispatch({
+    type: START_LESSON,
+    payload: data
+  })
+
+};

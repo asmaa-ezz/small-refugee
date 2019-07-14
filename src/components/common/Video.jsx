@@ -1,14 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import VideoPlayer from "react-video-js-player";
 
 class Video extends Component {
   player = {};
   state = {
-    video: {
-      src:
-        "https://small-refugee.herokuapp.com/media/videos/CGI_Animated_Short_Film-_Watermelon_A_Cautionary_Tale_by_Kefei_Li__Connie_Qin_He__ttE1AUh.mp4",
-      poster: ""
-    }
+    src: "",
+    poster: ""
   };
 
   onPlayerReady(player) {
@@ -40,26 +38,77 @@ class Video extends Component {
     console.log("Video ended");
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    this.props.url !== nextProps.url && this.forceUpdate();
+
+    return this.props.url !== nextProps.url;
+  }
+
+  componentDidMount() {
+    return this.handleVido();
+  }
+
+  componentDidUpdate() {
+    return this.handleVido();
+  }
+
+  handleVido = () => {
+    return (
+      <VideoPlayer
+        controls={true}
+        src={this.props.url}
+        poster={this.state.poster}
+        width="663.75"
+        height="285"
+        onReady={this.onPlayerReady.bind(this)}
+        onPlay={this.onVideoPlay.bind(this)}
+        onPause={this.onVideoPause.bind(this)}
+        onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
+        onSeeking={this.onVideoSeeking.bind(this)}
+        onSeeked={this.onVideoSeeked.bind(this)}
+        onEnd={this.onVideoEnd.bind(this)}
+      />
+    );
+  };
+
   render() {
+    console.log("pppp", this.props.url);
     return (
       <div>
-        <VideoPlayer
-          controls={true}
-          src={this.state.video.src}
-          poster={this.state.video.poster}
-          width="663.75"
-          height="285"
-          onReady={this.onPlayerReady.bind(this)}
-          onPlay={this.onVideoPlay.bind(this)}
-          onPause={this.onVideoPause.bind(this)}
-          onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
-          onSeeking={this.onVideoSeeking.bind(this)}
-          onSeeked={this.onVideoSeeked.bind(this)}
-          onEnd={this.onVideoEnd.bind(this)}
-        />
+        {this.props.url ? (
+          <React.Fragment>
+            <h1>{this.props.url}</h1>
+            <VideoPlayer
+              controls={true}
+              src={this.props.url}
+              poster={this.state.poster}
+              width="663.75"
+              height="285"
+              onReady={this.onPlayerReady.bind(this)}
+              onPlay={this.onVideoPlay.bind(this)}
+              onPause={this.onVideoPause.bind(this)}
+              onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
+              onSeeking={this.onVideoSeeking.bind(this)}
+              onSeeked={this.onVideoSeeked.bind(this)}
+              onEnd={this.onVideoEnd.bind(this)}
+            />
+          </React.Fragment>
+        ) : (
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
       </div>
     );
   }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//     // vidoOpen: state.lesson.vidoOpen
+//   };
+// };
+
+// export default connect(mapStateToProps)(Video);
 
 export default Video;

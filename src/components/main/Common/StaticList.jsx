@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const Card = styled.div`
-  height: 30vh;
+  height: 406px;
   background: #fff;
   border-radius: 5px;
   text-align: center;
