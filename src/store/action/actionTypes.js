@@ -28,3 +28,4 @@ export const START_LESSON = 'START_LESSON';
 // Action of Quiz
 
 export const GET_QUIZ = 'GET_QUIZ';
+export const OPEN_QUIZ = 'OPEN_QUIZ';

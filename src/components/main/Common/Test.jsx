@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import ButtonLesson from "../../common/ButtonLesson";
+import ButtonTest from "../../common/ButtonTest";
 import Quiz from "../../common/Quiz";
 
 import { CARDTITLE, TURQUOISE } from "../../../constant/Color";
-import { GetQuiz } from "../../../store/action/actionCreator/actionQuiz";
+import {
+  GetQuiz,
+  OpenNewQuiz
+} from "../../../store/action/actionCreator/actionQuiz";
 
 const Div = styled.div`
   background-color: ${CARDTITLE};
@@ -40,8 +43,15 @@ class Test extends Component {
   };
   componentDidMount() {
     this.props.GetQuiz(this.props.id);
+
+    this.props.listQuiz &&
+      this.setState({
+        data: this.props.listQuiz[0]
+      });
   }
   render() {
+    console.log("quizNow ", this.props.quizNow);
+
     return (
       <div>
         <Div>
@@ -61,37 +71,29 @@ class Test extends Component {
         </Div>
         <div className="row">
           <div className="col-3" style={{ paddingBottom: "10px" }}>
-            {this.props.listQuiz &&
+            {this.props.listQuiz ? (
               this.props.listQuiz.map(item => {
                 return (
-                  <ButtonLesson
-                    handleButton={data => {
-                      console.log(data);
-
-                      this.setState({
-                        data: data
-                      });
-
-                      // const dataOnes = this.state.videos.filter(item => {
-                      //   return item.id === data.id;
-                      // });
-                      // dataOnes.length < 1 &&
-                      //   this.setState({
-                      //     videos: [...this.state.videos, data],
-                      //     id: data.id
-                      //   });
+                  <ButtonTest
+                    handleButton={id => {
+                      this.props.OpenNewQuiz(id);
                     }}
-                    data={item}
+                    id={item.id}
                     isView={item.isView}
                     key={item.id}
                     text="السؤال الأول"
                   />
                 );
-              })}
+              })
+            ) : (
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
           </div>
           <div className="col-9">
-            {this.state.data ? (
-              <Quiz data={this.state.data} />
+            {this.props.quizNow ? (
+              <Quiz data={this.props.quizNow} />
             ) : (
               <div className="spinner-border text-primary" role="status">
                 <span className="sr-only">Loading...</span>
@@ -106,13 +108,15 @@ class Test extends Component {
 
 const mapStateToProps = state => {
   return {
-    listQuiz: state.quiz.listQuiz
+    listQuiz: state.quiz.listQuiz,
+    quizNow: state.quiz.quizNow
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    GetQuiz: id => dispatch(GetQuiz(id))
+    GetQuiz: id => dispatch(GetQuiz(id)),
+    OpenNewQuiz: id => dispatch(OpenNewQuiz(id))
   };
 };
 

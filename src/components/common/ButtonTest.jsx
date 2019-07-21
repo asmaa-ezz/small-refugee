@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
-import { OpenLessonClikButton } from "../../store/action/actionCreator/actionLesson";
 import { GREEN, BORDER } from "../../constant/Color";
 
 const Div = styled.div`
@@ -38,23 +36,22 @@ const focusText = {
   color: "#fff"
 };
 
-class ButtonLesson extends Component {
+class ButtonTest extends Component {
   state = {
     isFocus: false
   };
 
   componentDidMount() {
-    this.props.id === 3 && this.setState({ isFocus: true });
+    this.props.id === 1 && this.setState({ isFocus: true });
   }
   render() {
-    const { data, text, isView, handleButton, id } = this.props;
+    const { text, isView, handleButton, id } = this.props;
     const { isFocus } = this.state;
     return (
       <Div
         style={(isFocus && focus) || (isView && focus)}
         onClick={() => {
-          handleButton(data);
-          // this.props.OpenLessonClikButton(data.link);
+          handleButton(id);
           this.setState({ isFocus: true });
         }}
       >
@@ -67,15 +64,4 @@ class ButtonLesson extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     OpenLessonClikButton: data => dispatch(OpenLessonClikButton(data))
-//   };
-// };
-
-export default ButtonLesson;
-
-// export default connect(
-//   null,
-//   mapDispatchToProps
-// )(ButtonLesson);
+export default ButtonTest;

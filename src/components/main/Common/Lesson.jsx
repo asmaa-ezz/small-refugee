@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
-
 import ButtonBorde from "../../common/ButtonBorde";
 import ButtonLesson from "../../common/ButtonLesson";
+import CardPageLesson from "../../common/CardPageLesson";
 import Video from "../../common/Video";
-import { GetLessons } from "../../../store/action/actionCreator/actionLesson";
-import { CARDTITLE, TURQUOISE } from "../../../constant/Color";
+import { CARDTITLE, TURQUOISE, ORANGE } from "../../../constant/Color";
 
 const Div = styled.div`
   background-color: ${CARDTITLE};
@@ -37,27 +35,21 @@ const Text = styled.div`
 
 class Lesson extends Component {
   state = {
-    videos: [],
-    link:
-      "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+    videos: []
   };
   componentDidMount() {
-    this.props.GetLessons(this.props.id);
+    this.props.lessons &&
+      this.setState({
+        videos: [...this.state.videos, this.props.lessons.video_set[0]],
+        id: this.props.lessons.video_set[0].id
+      });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.videos != nextState.videos;
   }
 
   render() {
-    console.log("wwww", this.props.history);
-
-    const videoJsOptions = {
-      controls: true,
-      sources: [
-        {
-          src: this.state.link,
-          type: "video/mp4"
-        }
-      ]
-    };
-
     const render = this.props.lessons ? (
       <div>
         <Div>
@@ -101,65 +93,38 @@ class Lesson extends Component {
                   data={item}
                   isView={item.isView}
                   key={item.id}
+                  id={item.id}
                   text="عنوان الدرس"
                 />
               );
             })}
           </div>
           <div className="col-9">
-            {this.state.videos &&
+            {this.props.lessons &&
               this.state.videos.map(item => {
                 if (item.id === this.state.id) {
                   return <Video url={item.link} />;
                 } else return null;
               })}
-            <Div
-              style={{
-                backgroundColor: TURQUOISE,
-                marginTop: "10px",
-                height: "93px"
+            <CardPageLesson
+              textButton={"إبدأ الإختبار"}
+              text1="انهيت الدرس دعنا نتأكد من فهمك للمحتوى"
+              text2="لن تتجاوز الدرس إلا بعد اجتياز الاختبار"
+              color={TURQUOISE}
+              handleClick={() => {
+                this.props.history.push(
+                  `/learn/test/${this.props.lessons.lesson_set[0].quiz}`
+                );
               }}
-            >
-              <Body>
-                <Text style={{ fontSize: "18px" }}>
-                  انهيت الدرس دعنا نتأكد من فهمك للمحتوى
-                </Text>
-                <Text style={{ fontSize: "18px" }}>
-                  لن تتجاوز الدرس إلا بعد اجتياز الاختبار
-                </Text>
-              </Body>
-
-              <Body>
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    color: TURQUOISE,
-                    height: "45px",
-                    padding: "5px 30px",
-                    textAlign: "center",
-                    borderRadius: "20px",
-                    fontFamily: "Cairo, sans-serif",
-                    justifyContent: "center"
-                  }}
-                  onClick={() => {
-                    const id =
-                      this.props.lessons &&
-                      this.props.lessons.lesson_set[0].quiz;
-                    this.props.history.push(`/learn/test/${id}`);
-                  }}
-                >
-                  <p
-                    style={{
-                      fontWeight: 700,
-                      fontSize: "18px",
-                      marginTop: "4px"
-                    }}
-                  >
-                    إبدأ الإختبار
-                  </p>
-                </div>
-              </Body>
-            </Div>
+            />
+            <CardPageLesson
+              handleClick={() => {
+                this.props.history.push(`/`);
+              }}
+              textButton={"تحميل"}
+              text1="لتحميل المادة الدراسية على شكل مستند رقمي"
+              color={ORANGE}
+            />
           </div>
         </div>
       </div>
@@ -173,19 +138,4 @@ class Lesson extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    lessons: state.lesson.lessons
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    GetLessons: id => dispatch(GetLessons(id))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Lesson);
+export default Lesson;

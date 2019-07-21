@@ -1,4 +1,4 @@
-import { GET_QUIZ } from '../actionTypes';
+import { GET_QUIZ, OPEN_QUIZ } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -26,3 +26,11 @@ export const GetQuiz = id => dispatch => {
       })
     })
 };
+
+export const OpenNewQuiz = id => dispatch => {
+  dispatch({
+    type: OPEN_QUIZ,
+    payload: id
+  })
+};
+

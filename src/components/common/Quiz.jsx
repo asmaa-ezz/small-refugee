@@ -22,7 +22,7 @@ const Title = styled.div`
 `;
 
 const Quiz = ({ data }) => {
-  console.log(data);
+  console.log("000000", data);
 
   return (
     <div key={data.id}>

@@ -44,8 +44,16 @@ class Main extends Component {
             <Route path="/sign-out" component={SignOut} />
             <PublicRoute path="/reset-password" component={ResetPassword} />
             <PrivateRoute path="/profile" component={Profile} />
-            <PrivateRoute path="/posts/:title" component={SubjectPost} />
-            <PrivateRoute path="/username/:username" component={UserProfile} />
+            <PrivateRoute
+              path="/posts/:title"
+              component={SubjectPost}
+              dataStitic={dataStitic}
+            />
+            <PrivateRoute
+              path="/username/:username"
+              component={UserProfile}
+              dataStitic={dataStitic}
+            />
             {/* Pages */}
             <PrivateRoute
               exact

@@ -7,6 +7,12 @@ const lessonReducer = (state = initState, action) => {
       return {
         ...state,
         listQuiz: action.payload,
+        quizNow: action.payload[0],
+      }
+    case 'OPEN_QUIZ':
+      return {
+        ...state,
+        quizNow: state.listQuiz[action.payload - 1],
       }
     default:
       return state;
