@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import StaticList from "../Common/StaticList";
-import ListSubject from "../Common/ListSubject";
-import CreatPost from "../../post/CreatPost";
-import ListPosts from "../../post/ListPosts";
 import UserInfoPage from "../../common/UserInfoPage";
+import Test from '../Common/Test'
 
-class Share extends Component {
+class TestPage extends Component {
   render() {
-    const { history } = this.props;
+    const { history, match } = this.props;
+    const { id } = match.params;
     const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
@@ -20,13 +18,8 @@ class Share extends Component {
               type={stage}
             />
           </div>
-          <div className="col-6">
-            <CreatPost />
-            <br />
-            <ListPosts history={history} />
-          </div>
-          <div className="col-4">
-            <ListSubject />
+          <div className="col-10">
+            <Test id={id} />
           </div>
         </div>
       </div>
@@ -34,4 +27,4 @@ class Share extends Component {
   }
 }
 
-export default Share;
+export default TestPage;

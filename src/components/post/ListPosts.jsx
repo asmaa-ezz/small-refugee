@@ -9,22 +9,23 @@ class ListPosts extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const mapPost = this.props.posts ? (
       this.props.subjectFilter ? (
         this.props.posts.map(item => {
           if (item.subject_title === this.props.subjectFilter) {
-            return <Post data={item} key={item.id} />;
+            return <Post data={item} key={item.id} history={history} />;
           }
         })
       ) : this.props.usernameFilter ? (
         this.props.posts.map(item => {
           if (item.user_username === this.props.usernameFilter) {
-            return <Post data={item} key={item.id} />;
+            return <Post data={item} key={item.id} history={history} />;
           }
         })
       ) : (
         this.props.posts.map(item => {
-          return <Post data={item} key={item.id} />;
+          return <Post data={item} key={item.id} history={history} />;
         })
       )
     ) : (

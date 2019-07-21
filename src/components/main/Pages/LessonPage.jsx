@@ -20,7 +20,7 @@ class LessonPage extends Component {
             />
           </div>
           <div className="col-10">
-            <Lesson id={id} />
+            <Lesson history={history} id={id} />
           </div>
         </div>
       </div>

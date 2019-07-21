@@ -23,3 +23,8 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_UNITS = 'GET_UNITS';
 export const GET_LESSONS = 'GET_LESSONS';
 export const START_LESSON = 'START_LESSON';
+
+
+// Action of Quiz
+
+export const GET_QUIZ = 'GET_QUIZ';

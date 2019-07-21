@@ -15,6 +15,7 @@ import Home from "./Pages/Home";
 import Learn from "./Pages/Learn";
 import UnitsPage from "./Pages/UnitsPage";
 import LessonPage from "./Pages/LessonPage";
+import TestPage from "./Pages/TestPage";
 import Library from "./Pages/Library";
 import OtherLink from "./Pages/OtherLink";
 
@@ -61,6 +62,12 @@ class Main extends Component {
             <PrivateRoute
               path="/learn/unit/:id"
               component={LessonPage}
+              dataStitic={dataStitic}
+            />
+
+            <PrivateRoute
+              path="/learn/test/:id"
+              component={TestPage}
               dataStitic={dataStitic}
             />
             <PrivateRoute

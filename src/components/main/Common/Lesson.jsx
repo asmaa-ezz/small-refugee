@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import ButtonBorde from "../../common/ButtonBorde";
 import ButtonLesson from "../../common/ButtonLesson";
-
 import Video from "../../common/Video";
-import VideoJs from "../../common/VideoJs";
-import {
-  GetLessons,
-  OpenLessonClikButton
-} from "../../../store/action/actionCreator/actionLesson";
+import { GetLessons } from "../../../store/action/actionCreator/actionLesson";
 import { CARDTITLE, TURQUOISE } from "../../../constant/Color";
 
 const Div = styled.div`
@@ -52,7 +46,8 @@ class Lesson extends Component {
   }
 
   render() {
-    console.log("qqqqq", this.state.videos);
+    console.log("wwww", this.props.history);
+
     const videoJsOptions = {
       controls: true,
       sources: [
@@ -135,8 +130,7 @@ class Lesson extends Component {
               </Body>
 
               <Body>
-                <Link
-                  to="/"
+                <div
                   style={{
                     backgroundColor: "#fff",
                     color: TURQUOISE,
@@ -146,6 +140,12 @@ class Lesson extends Component {
                     borderRadius: "20px",
                     fontFamily: "Cairo, sans-serif",
                     justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    const id =
+                      this.props.lessons &&
+                      this.props.lessons.lesson_set[0].quiz;
+                    this.props.history.push(`/learn/test/${id}`);
                   }}
                 >
                   <p
@@ -157,7 +157,7 @@ class Lesson extends Component {
                   >
                     إبدأ الإختبار
                   </p>
-                </Link>
+                </div>
               </Body>
             </Div>
           </div>
@@ -176,7 +176,6 @@ class Lesson extends Component {
 const mapStateToProps = state => {
   return {
     lessons: state.lesson.lessons
-    // vidoOpen: state.lesson.vidoOpen
   };
 };
 

@@ -77,7 +77,6 @@ class Video extends Component {
       <div>
         {this.props.url ? (
           <React.Fragment>
-            <h1>{this.props.url}</h1>
             <VideoPlayer
               controls={true}
               src={this.props.url}
