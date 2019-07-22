@@ -42,10 +42,6 @@ const UserInfoPage = ({ history, image, fullName, type }) => {
         </span>
       </div>
       <div className="list-button" />
-      {console.log(
-        history.location.pathname === "posts",
-        history.location.pathname
-      )}
       <ButtonListUserInfo
         history={history}
         text="شارك أفكارك"

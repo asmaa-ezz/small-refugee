@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { GREEN, BORDER } from "../../constant/Color";
+import { BACKGROUND, BORDER, PURPLE, GREEN2, RED } from "../../constant/Color";
 
 const Div = styled.div`
   background-color: #fff;
@@ -18,7 +18,7 @@ const Circle = styled.div`
   width: 21px;
   height: 21px;
   border-radius: 50%;
-  background-color: ${GREEN};
+  background-color: ${BACKGROUND};
   border: 2px solid #fff;
   margin-left: 10px;
 `;
@@ -29,7 +29,7 @@ const Text = styled.div`
 `;
 
 const focus = {
-  backgroundColor: GREEN
+  backgroundColor: PURPLE
 };
 
 const focusText = {
@@ -37,28 +37,38 @@ const focusText = {
 };
 
 class ButtonTest extends Component {
-  state = {
-    isFocus: false
+  handleText = index => {
+    switch (index) {
+      case 0:
+        return "السؤال الأول";
+      case 1:
+        return "السؤال الثاني";
+      case 2:
+        return "السؤال الثالث";
+      case 3:
+        return "السؤال الرابع";
+      case 4:
+        return "السؤال الخامس";
+      default:
+        return "السؤال";
+    }
   };
-
-  componentDidMount() {
-    this.props.id === 1 && this.setState({ isFocus: true });
-  }
   render() {
-    const { text, isView, handleButton, id } = this.props;
-    const { isFocus } = this.state;
+    const { id, index, isFocus, answer } = this.props;
     return (
-      <Div
-        style={(isFocus && focus) || (isView && focus)}
-        onClick={() => {
-          handleButton(id);
-          this.setState({ isFocus: true });
-        }}
-      >
-        <Circle />
-        <Text style={(isFocus && focusText) || (isView && focusText)}>
-          {text}
-        </Text>
+      <Div style={isFocus ? focus : null}>
+        <Circle
+          style={
+            isFocus
+              ? focus
+              : answer !== ""
+              ? answer === true
+                ? { backgroundColor: `${GREEN2}` }
+                : { backgroundColor: `${RED}` }
+              : null
+          }
+        />
+        <Text style={isFocus ? focusText : null}>{this.handleText(index)}</Text>
       </Div>
     );
   }

@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 
 import ButtonTest from "../../common/ButtonTest";
 import Quiz from "../../common/Quiz";
+import CardResultTest from "../../common/CardResultTest";
 
-import { CARDTITLE, TURQUOISE } from "../../../constant/Color";
+import { CARDTITLE, TURQUOISE, RED, GREEN2 } from "../../../constant/Color";
 import {
   GetQuiz,
   OpenNewQuiz
@@ -43,14 +44,13 @@ class Test extends Component {
   };
   componentDidMount() {
     this.props.GetQuiz(this.props.id);
-
     this.props.listQuiz &&
       this.setState({
         data: this.props.listQuiz[0]
       });
   }
   render() {
-    console.log("quizNow ", this.props.quizNow);
+    console.log("dd", this.props.isSuccessful);
 
     return (
       <div>
@@ -71,17 +71,15 @@ class Test extends Component {
         </Div>
         <div className="row">
           <div className="col-3" style={{ paddingBottom: "10px" }}>
-            {this.props.listQuiz ? (
-              this.props.listQuiz.map(item => {
+            {this.props.quizNow ? (
+              this.props.listQuiz.map((item, index) => {
                 return (
                   <ButtonTest
-                    handleButton={id => {
-                      this.props.OpenNewQuiz(id);
-                    }}
+                    answer={item.answer}
+                    index={index}
                     id={item.id}
-                    isView={item.isView}
                     key={item.id}
-                    text="السؤال الأول"
+                    isFocus={item.id === this.props.quizNow.id}
                   />
                 );
               })
@@ -93,7 +91,15 @@ class Test extends Component {
           </div>
           <div className="col-9">
             {this.props.quizNow ? (
-              <Quiz data={this.props.quizNow} />
+              this.props.isDone ? (
+                <CardResultTest isSuccessful={this.props.isSuccessful} />
+              ) : (
+                <Quiz
+                  data={this.props.quizNow}
+                  idTest={this.props.id}
+                  lastId={this.props.listQuiz[this.props.listQuiz.length - 1]}
+                />
+              )
             ) : (
               <div className="spinner-border text-primary" role="status">
                 <span className="sr-only">Loading...</span>
@@ -109,7 +115,10 @@ class Test extends Component {
 const mapStateToProps = state => {
   return {
     listQuiz: state.quiz.listQuiz,
-    quizNow: state.quiz.quizNow
+    quizNow: state.quiz.quizNow,
+    quizAnswer: state.quiz.quizAnswer,
+    isSuccessful: state.quiz.isSuccessful,
+    isDone: state.quiz.isDone
   };
 };
 

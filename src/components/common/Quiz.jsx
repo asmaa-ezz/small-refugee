@@ -12,7 +12,6 @@ const Div = styled.div`
   justify-content: center;
   font-family: Cairo, sans-serif;
   border-radius: 5px;
-  cursor: pointer;
 `;
 
 const Title = styled.div`
@@ -21,16 +20,22 @@ const Title = styled.div`
   color: ${PURPLE};
 `;
 
-const Quiz = ({ data }) => {
-  console.log("000000", data);
-
+const Quiz = ({ data, idTest, lastId }) => {
   return (
     <div key={data.id}>
       <Div>
         <Title>{data.text}</Title>
       </Div>
       {data.choices.map(item => {
-        return <Choose text={item.choice} key={item.id} />;
+        return (
+          <Choose
+            text={item.text}
+            key={item.id}
+            idQuiz={data.id}
+            idTest={idTest}
+            end={lastId.id === data.id}
+          />
+        );
       })}
     </div>
   );
