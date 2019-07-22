@@ -45,8 +45,6 @@ class SignUp extends Component {
     if (this.props.authError) {
       let massege = "";
       const data = JSON.parse(this.props.authError);
-      console.log("data", data, data.username);
-
       if (data.email) {
         massege = data.email[0].includes("email already exists")
           ? "عنوان البريد الالكتروني موجود سابقا"

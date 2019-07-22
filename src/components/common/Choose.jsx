@@ -24,14 +24,17 @@ const Div = styled.div`
 `;
 
 class Choose extends Component {
+  componentDidUpdate() {
+    this.props.end && this.props.DoneTest();
+  }
+
   render() {
-    const { text, idQuiz, idTest, end } = this.props;
+    const { text, idQuiz, idTest } = this.props;
 
     return (
       <Div
         onClick={() => {
           this.props.AnswerQuiz(idTest, idQuiz, text);
-          end && this.props.DoneTest();
         }}
       >
         {text}
@@ -42,7 +45,8 @@ class Choose extends Component {
 
 const mapStateToProps = state => {
   return {
-    quizAnswer: state.quiz.quizAnswer
+    quizAnswer: state.quiz.quizAnswer,
+    lastQuiz: state.quiz.lastQuiz
   };
 };
 

@@ -34,13 +34,12 @@ const lessonReducer = (state = initState, action) => {
             : item
         }),
         quizNow: newQ,
+        lastQuiz: (newQ === state.quizNow)
       }
     case 'DONE_TEST':
       const answerCorrect = state.quizAnswer;
       const Average = state.listQuiz.length / 2
       const isSuccessful = answerCorrect > Average;
-      console.log('ddddddddd', isSuccessful);
-
       return {
         ...state,
         isSuccessful: isSuccessful,

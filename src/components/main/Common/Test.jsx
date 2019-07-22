@@ -50,8 +50,6 @@ class Test extends Component {
       });
   }
   render() {
-    console.log("dd", this.props.isSuccessful);
-
     return (
       <div>
         <Div>

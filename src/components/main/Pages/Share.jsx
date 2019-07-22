@@ -23,7 +23,7 @@ class Share extends Component {
           <div className="col-6">
             <CreatPost />
             <br />
-            <ListPosts history={history} />
+            <ListPosts history={history} dataStitic={this.props.dataStitic} />
           </div>
           <div className="col-4">
             <ListSubject />

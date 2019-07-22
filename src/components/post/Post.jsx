@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import CreateComment from "./CreateComment";
 import ListComments from "./ListComments";
+import CommentsList from "./CommentsList";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 import Rating from "../../assets/image/Rating.png";
 import UserDefault from "../../assets/image/UserDefault.png";
@@ -14,7 +15,7 @@ import UserDefault from "../../assets/image/UserDefault.png";
 const DivPost = styled.div`
   background-color: #fff;
   border-radius: 5px;
-  padding: 14px;
+  padding: 14px 14px 0 14px;
   font-family: Cairo, sans-serif;
   margin-bottom: 16px;
 `;
@@ -70,7 +71,7 @@ const TextPost = styled.p`
   font-size: 12px;
   margin-right: 52px;
   margin-left: 10px;
-  line-height: 2;
+  line-height: 2.1;
 `;
 
 class Post extends Component {
@@ -156,8 +157,10 @@ class Post extends Component {
       user_username,
       user_avatar,
       url,
-      created_at
+      created_at,
+      comments
     } = this.props.data;
+
     return this.props.data ? (
       <DivPost>
         <HeaderPost className="header">
@@ -279,6 +282,16 @@ class Post extends Component {
           </button> */}
         </div>
         <hr style={{ width: "106%", marginRight: "-15px" }} />
+        <CommentsList list={comments} history={history} />
+        {this.props.dataStitic && (
+          <CreateComment
+            url={url}
+            id={id}
+            history={history}
+            dataStitic={this.props.dataStitic}
+          />
+        )}
+
         {/* {this.state.viewComment && (
           <div>
             <CreateComment url={url} id={id} />

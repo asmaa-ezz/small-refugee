@@ -25,7 +25,14 @@ class ListPosts extends Component {
         })
       ) : (
         this.props.posts.map(item => {
-          return <Post data={item} key={item.id} history={history} />;
+          return (
+            <Post
+              data={item}
+              key={item.id}
+              history={history}
+              dataStitic={this.props.dataStitic}
+            />
+          );
         })
       )
     ) : (
