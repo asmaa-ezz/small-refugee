@@ -1,4 +1,4 @@
-import { GET_QUIZ, OPEN_QUIZ, ANSWER_QUIZ, DONE_TEST } from '../actionTypes';
+import { GET_QUIZ, OPEN_QUIZ, ANSWER_QUIZ, DONE_TEST, END_TEST } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -69,6 +69,36 @@ export const AnswerQuiz = (testId, quizId, text) => dispatch => {
       dispatch({
         type: ANSWER_QUIZ,
         payload: isCorrect
+      })
+    })
+};
+
+
+
+export const FetchDoneTest = (lessonId) => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = `${API}main/user-lesson/`;
+
+  const Token = GetToken();
+
+  const data = {
+    lesson: lessonId,
+    is_done: true
+  }
+
+  fetch((proxyurl + url), {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      "Authorization": `JWT ${Token}`,
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(object => {
+      dispatch({
+        type: END_TEST,
+        payload: object.unit[0],
       })
     })
 };

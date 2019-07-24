@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ButtonBorde from "../../common/ButtonBorde";
 import ButtonLesson from "../../common/ButtonLesson";
 import CardPageLesson from "../../common/CardPageLesson";
+import PostCommentLesson from "../../common/PostCommentLesson";
 import Video from "../../common/Video";
 import { CARDTITLE, TURQUOISE, ORANGE } from "../../../constant/Color";
 
@@ -41,7 +42,8 @@ class Lesson extends Component {
     this.props.lessons &&
       this.setState({
         videos: [...this.state.videos, this.props.lessons.video_set[0]],
-        id: this.props.lessons.video_set[0].id
+        id: this.props.lessons.lesson_set[0].id,
+        idQuiz: this.props.lessons.lesson_set[0].quiz
       });
   }
 
@@ -87,7 +89,8 @@ class Lesson extends Component {
                     dataOnes.length < 1 &&
                       this.setState({
                         videos: [...this.state.videos, data],
-                        id: data.id
+                        id: data.id,
+                        idQuiz: data.quiz
                       });
                   }}
                   data={item}
@@ -113,7 +116,7 @@ class Lesson extends Component {
               color={TURQUOISE}
               handleClick={() => {
                 this.props.history.push(
-                  `/learn/test/${this.props.lessons.lesson_set[0].quiz}`
+                  `/learn/${this.state.id}/${this.state.idQuiz}`
                 );
               }}
             />
@@ -126,6 +129,9 @@ class Lesson extends Component {
               color={ORANGE}
             />
           </div>
+        </div>
+        <div>
+          <PostCommentLesson history={this.props.history} />
         </div>
       </div>
     ) : (

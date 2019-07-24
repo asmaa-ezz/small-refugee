@@ -15,16 +15,28 @@ const postSchema = Yup.object().shape({
 });
 
 const FormStyle = styled.form`
-  margin-top: 5%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 5%;
-  outline: none;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 14px;
+  font-family: Cairo, sans-serif;
+`;
+
+const Button = styled.button`
+  align-items: center;
+  height: 25px;
+  width: 80px;
+  color: #fff;
+  border: none;
+  background-color: #8283d9;
+  border-radius: 5px;
+  font-size: 12px;
+  fontfamily: Cairo, sans-serif;
+  cursor: pointer;
 `;
 
 class CreatPost extends Component {
   handleSubmitCreatPost = values => {
-    if (values.subject === "اختر مادة") values.subject = null;
+    if (values.subject === "إختر مــــادة") values.subject = null;
     this.props.AddPost(values);
   };
 
@@ -38,7 +50,7 @@ class CreatPost extends Component {
         }}
       >
         {props => (
-          <form
+          <FormStyle
             onSubmit={props.handleSubmit}
             style={{ background: "#fff", borderRadius: "5px" }}
             className="container"
@@ -49,10 +61,21 @@ class CreatPost extends Component {
                   <img
                     src={this.props.user.avatar}
                     alt="img"
-                    style={{ borderRadius: "50%", width: "8%", margin: "2%" }}
+                    style={{
+                      borderRadius: "50%",
+                      width: "35px",
+                      height: "35px",
+                      marginLeft: "12px"
+                    }}
                   />
                 )}
-                <span>
+                <span
+                  style={{
+                    color: "#8283D9",
+                    fontSize: "12px",
+                    fontWeight: 700
+                  }}
+                >
                   {this.props.user &&
                     `${this.props.user.first_name} ${
                       this.props.user.last_name
@@ -67,7 +90,13 @@ class CreatPost extends Component {
                 name="text"
                 value={props.values.text}
                 className="form-control"
-                style={{ border: "none", width: "80%", marginRight: "10%" }}
+                style={{
+                  border: "none",
+                  width: "90%",
+                  fontSize: "12px",
+                  marginRight: "35px",
+                  resize: "none"
+                }}
               />
               {props.errors.text && props.touched.text ? (
                 <span className="form-text text-danger small">
@@ -78,42 +107,28 @@ class CreatPost extends Component {
               )}
             </div>
             <hr style={{ width: "106%", marginRight: "-3%" }} />
-            <div className="row">
-              <div className="col-3 form-group">
+            <div
+              className=""
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "90%",
+                marginRight: "30px"
+              }}
+            >
+              <div className="">
                 <ListSubject values={props.values} />
               </div>
-
-              <div className="col-3 form-group">
-                <button
+              <div className="">
+                <Button
                   type="submit"
                   disabled={!props.dirty && !props.isSubmitting}
-                  className="btn btn-secondary"
-                >
-                  أرفق صورة
-                </button>
-              </div>
-
-              <div className="col-3 form-group">
-                <button
-                  type="submit"
-                  disabled={!props.dirty && !props.isSubmitting}
-                  className="btn btn-secondary"
-                >
-                  أرفق ملف
-                </button>
-              </div>
-
-              <div className="col-3 form-group">
-                <button
-                  type="submit"
-                  disabled={!props.dirty && !props.isSubmitting}
-                  className="btn btn-primary"
                 >
                   نشر
-                </button>
+                </Button>
               </div>
             </div>
-          </form>
+          </FormStyle>
         )}
       </Formik>
     );

@@ -165,7 +165,7 @@ class Post extends Component {
       <DivPost>
         <HeaderPost className="header">
           <UserInfo className="user-name">
-            {!user_avatar.includes("images") ? (
+            {/* {!user_avatar.includes("images") ? (
               <ImgUser
                 src={user_avatar}
                 alt="user-img"
@@ -173,15 +173,15 @@ class Post extends Component {
                   history.push(`/username/${user_username}`);
                 }}
               />
-            ) : (
-              <ImgUser
-                src={UserDefault}
-                alt="user-img"
-                onClick={() => {
-                  history.push(`/username/${user_username}`);
-                }}
-              />
-            )}
+            ) : ( */}
+            <ImgUser
+              src={UserDefault}
+              alt="user-img"
+              onClick={() => {
+                history.push(`/username/${user_username}`);
+              }}
+            />
+            {/* )} */}
             <div
               onClick={() => {
                 history.push(`/username/${user_username}`);

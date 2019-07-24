@@ -58,7 +58,7 @@ const TextComment = styled.p`
   line-height: 2.1;
 `;
 
-class CommentsList extends Component {
+class CommentsListLesson extends Component {
   render() {
     const { list, history } = this.props;
     const comments = list.map(comment => {
@@ -66,15 +66,6 @@ class CommentsList extends Component {
         <DivComment key={comment.id}>
           <HeaderComment className="header">
             <UserInfo className="user-name">
-              {/* {!comment.user_avatar.includes("images") ? (
-                <ImgUser
-                  src={comment.user_avatar}
-                  alt="user-img"
-                  onClick={() => {
-                    history.push(`/username/${comment.user_username}`);
-                  }}
-                />
-              ) : ( */}
               <ImgUser
                 src={UserDefault}
                 alt="user-img"
@@ -82,7 +73,6 @@ class CommentsList extends Component {
                   history.push(`/username/${comment.user_username}`);
                 }}
               />
-              {/* )} */}
               <div
                 onClick={() => {
                   history.push(`/username/${comment.user_username}`);
@@ -124,4 +114,4 @@ class CommentsList extends Component {
   }
 }
 
-export default CommentsList;
+export default CommentsListLesson;

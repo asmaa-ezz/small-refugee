@@ -9,7 +9,8 @@ import CardResultTest from "../../common/CardResultTest";
 import { CARDTITLE, TURQUOISE, RED, GREEN2 } from "../../../constant/Color";
 import {
   GetQuiz,
-  OpenNewQuiz
+  OpenNewQuiz,
+  FetchDoneTest
 } from "../../../store/action/actionCreator/actionQuiz";
 
 const Div = styled.div`
@@ -49,6 +50,7 @@ class Test extends Component {
         data: this.props.listQuiz[0]
       });
   }
+
   render() {
     return (
       <div>
@@ -90,7 +92,11 @@ class Test extends Component {
           <div className="col-9">
             {this.props.quizNow ? (
               this.props.isDone ? (
-                <CardResultTest isSuccessful={this.props.isSuccessful} />
+                <CardResultTest
+                  isSuccessful={this.props.isSuccessful}
+                  history={this.props.history}
+                  idLesson={this.props.idLesson}
+                />
               ) : (
                 <Quiz
                   data={this.props.quizNow}
@@ -116,14 +122,16 @@ const mapStateToProps = state => {
     quizNow: state.quiz.quizNow,
     quizAnswer: state.quiz.quizAnswer,
     isSuccessful: state.quiz.isSuccessful,
-    isDone: state.quiz.isDone
+    isDone: state.quiz.isDone,
+    unitId: state.quiz.unitId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     GetQuiz: id => dispatch(GetQuiz(id)),
-    OpenNewQuiz: id => dispatch(OpenNewQuiz(id))
+    OpenNewQuiz: id => dispatch(OpenNewQuiz(id)),
+    FetchDoneTest: lessonId => dispatch(FetchDoneTest(lessonId))
   };
 };
 

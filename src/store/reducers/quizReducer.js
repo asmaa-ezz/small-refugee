@@ -6,17 +6,20 @@ const initState = {
 
 const lessonReducer = (state = initState, action) => {
   switch (action.type) {
+
     case 'GET_QUIZ':
       return {
         ...state,
         listQuiz: action.payload,
         quizNow: action.payload[0],
       }
+
     case 'OPEN_QUIZ':
       return {
         ...state,
         quizNow: state.listQuiz[action.payload - 1],
       }
+
     case 'ANSWER_QUIZ':
       const lastIndex = state.listQuiz.length;
       const indexProv = state.listQuiz.indexOf(state.quizNow);
@@ -36,6 +39,7 @@ const lessonReducer = (state = initState, action) => {
         quizNow: newQ,
         lastQuiz: (newQ === state.quizNow)
       }
+
     case 'DONE_TEST':
       const answerCorrect = state.quizAnswer;
       const Average = state.listQuiz.length / 2
@@ -45,6 +49,12 @@ const lessonReducer = (state = initState, action) => {
         isSuccessful: isSuccessful,
         isDone: true
       }
+
+    case 'END_TEST':
+      return {
+        ...state,
+        unitId: action.payload,
+      };
 
     default:
       return state;

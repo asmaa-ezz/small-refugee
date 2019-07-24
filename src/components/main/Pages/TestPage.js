@@ -5,7 +5,7 @@ import Test from '../Common/Test'
 class TestPage extends Component {
   render() {
     const { history, match } = this.props;
-    const { id } = match.params;
+    const { id, idLesson } = match.params;
     const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
@@ -19,7 +19,7 @@ class TestPage extends Component {
             />
           </div>
           <div className="col-10">
-            <Test id={id} />
+            <Test id={id} history={history} idLesson={idLesson} />
           </div>
         </div>
       </div>

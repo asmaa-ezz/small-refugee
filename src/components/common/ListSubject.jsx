@@ -30,9 +30,18 @@ class ListSubject extends Component {
           name="subject"
           className="form-control"
           value={this.props.values.subject}
+          style={{
+            outline: "none",
+            height: "25px",
+            width: "93px",
+            fontSize: "9px",
+            padding: "0 18px 0 0",
+            backgroundColor: "#EDEEF0",
+            borderRadius: "20px"
+          }}
         >
           <option key={0} value={null}>
-            اختر مادة
+            إختر مــــادة
           </option>
           {mapSelect}
         </Field>

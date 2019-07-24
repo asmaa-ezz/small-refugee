@@ -57,7 +57,7 @@ const commentSchema = Yup.object().shape({
     .max(200)
 });
 
-class CreateComment extends Component {
+class CreateCommentLesson extends Component {
   handleSubmitComment = values => {
     const data = {
       text: values.text,
@@ -67,7 +67,7 @@ class CreateComment extends Component {
     this.props.AddCommentPost(data);
   };
   render() {
-    const { userImage, fullName } = this.props.dataStitic;
+    const { fullName } = this.props.dataStitic;
     const { history } = this.props;
     return (
       <Formik
@@ -80,15 +80,6 @@ class CreateComment extends Component {
             <div className="form-group">
               <HeaderComment className="header">
                 <UserInfo className="user-name">
-                  {/* {!userImage.includes("images") ? (
-                    <ImgUser
-                      src={userImage}
-                      alt="user-img"
-                      onClick={() => {
-                        history.push(`/profile`);
-                      }}
-                    />
-                  ) : ( */}
                   <ImgUser
                     src={UserDefault}
                     alt="user-img"
@@ -96,7 +87,6 @@ class CreateComment extends Component {
                       history.push(`/profile`);
                     }}
                   />
-                  {/* )} */}
                   <div
                     onClick={() => {
                       history.push(`/profile`);
@@ -153,17 +143,17 @@ class CreateComment extends Component {
 }
 const mapStatusToProps = state => {
   return {
-    newComment: state.post.newComment
+    // newComment: state.post.newComment
   };
 };
 
 const mapdispatchToProps = dispatch => {
   return {
-    AddCommentPost: data => dispatch(AddCommentPost(data))
+    // AddCommentPost: data => dispatch(AddCommentPost(data))
   };
 };
 
 export default connect(
   mapStatusToProps,
   mapdispatchToProps
-)(CreateComment);
+)(CreateCommentLesson);

@@ -31,4 +31,5 @@ export const GET_QUIZ = 'GET_QUIZ';
 export const OPEN_QUIZ = 'OPEN_QUIZ';
 export const ANSWER_QUIZ = 'ANSWER_QUIZ';
 export const DONE_TEST = 'DONE_TEST';
+export const END_TEST = 'END_TEST';
 

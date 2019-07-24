@@ -39,6 +39,8 @@ class Units extends Component {
     this.props.GetAllUnits(this.props.id);
   }
   render() {
+    console.log("ddd", this.props);
+
     const render = this.props.units ? (
       <div>
         <Div>
@@ -69,7 +71,7 @@ class Units extends Component {
               stage={"الصف الرابع الإبتدائي"}
               staticDetalis={"الدرس التالي"}
               details={"عنوان الدرس التالي"}
-              achieve={50}
+              achieve={item.achievement}
             />
           );
         })}

@@ -74,7 +74,7 @@ class Main extends Component {
             />
 
             <PrivateRoute
-              path="/learn/test/:id"
+              path="/learn/:idLesson/:id"
               component={TestPage}
               dataStitic={dataStitic}
             />
