@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import UserDefault from "../../assets/image/UserDefault.png";
-import RatingColor from "../../assets/image/RatingColor.png";
+// import RatingColor from "../../assets/image/RatingColor.png";
 
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 
@@ -108,7 +108,7 @@ class CommentsList extends Component {
             </UserInfo>
             <Type className="type">
               <RatingComment>
-                <img src={RatingColor} alt="Rating" />
+                {/* <img src={RatingColor} alt="Rating" /> */}
               </RatingComment>
             </Type>
           </HeaderComment>

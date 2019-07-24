@@ -13,7 +13,7 @@ const postReducer = (state = initState, action) => {
     case 'ADD_POST':
       return {
         ...state,
-        posts: [action.payload, ...state.posts],
+        posts: [...state.posts, action.payload],
       };
     case 'GET_POSTS':
       return {
@@ -21,24 +21,12 @@ const postReducer = (state = initState, action) => {
         posts: action.payload,
       }
     case 'ADD_COMMENT':
-      const { id, comments } = action.payload;
-
-      // state.comments.forEach(item => {
-      //   console.log(item);
-
-      // })
-
-      // return {
-      //   // id, comments
-      //   ...state,
-      //   comments: [...state.comments, action.payload],
-      // }
-      return state;
-    case 'GET_COMMENTS':
-
       return {
         ...state,
-        comments: [...state.comments, action.payload],
+        posts: state.posts.map(item => {
+          return (item.id === action.payload.id) ?
+            { ...item, comments: [...item.comments, action.payload.comment] } : item
+        }),
       }
     default: return state;
   }

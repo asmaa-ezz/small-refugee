@@ -1,18 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { GetPosts } from "../../store/action/actionCreator/actionPost";
+import { GetPostLesson } from "../../store/action/actionCreator/actionLesson";
 import PostLesson from "./PostLesson";
 
 class PostCommentLesson extends Component {
   componentDidMount() {
-    // this.props.GetPosts();
+    this.props.GetPostLesson(this.props.id);
   }
 
   render() {
+    console.log(this.props.listPostLesson && this.props.listPostLesson);
+
     const { history } = this.props;
-    const mapPost = this.props.posts ? (
-      this.props.posts.map(item => {
-        return <PostLesson data={item} key={item.id} history={history} />;
+    const mapPost = this.props.listPostLesson ? (
+      this.props.listPostLesson.map(item => {
+        return (
+          <React.Fragment>
+            <PostLesson
+              data={item}
+              key={item.id}
+              history={history}
+              dataStitic={this.props.dataStitic}
+            />
+          </React.Fragment>
+        );
       })
     ) : (
       <div className="spinner-border text-primary" role="status">
@@ -26,13 +37,13 @@ class PostCommentLesson extends Component {
 
 const mapStateToProps = state => {
   return {
-    // posts: state.post.posts
+    listPostLesson: state.lesson.listPostLesson
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // GetPosts: () => dispatch(GetPosts())
+    GetPostLesson: id => dispatch(GetPostLesson(id))
   };
 };
 export default connect(

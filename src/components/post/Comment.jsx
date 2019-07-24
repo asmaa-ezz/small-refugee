@@ -21,14 +21,18 @@ class Comment extends Component {
           padding: "10px"
         }}
       >
-        <Link to={`/username/${user_username}`}>
-          {user_first_name} {user_last_name}
-        </Link>
-        <Moment fromNow ago className="form-text small text-black-50">
-          {created_at}
-        </Moment>
-        <div>{text}</div>
-        <div>likes: {likes}</div>
+        {user_first_name && (
+          <React.Fragment>
+            <Link to={`/username/${user_username}`}>
+              {user_first_name} {user_last_name}
+            </Link>
+            <Moment fromNow ago className="form-text small text-black-50">
+              {created_at}
+            </Moment>
+            <div>{text}</div>
+            <div>likes: {likes}</div>
+          </React.Fragment>
+        )}
       </div>
     );
   }

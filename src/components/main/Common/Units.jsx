@@ -39,8 +39,6 @@ class Units extends Component {
     this.props.GetAllUnits(this.props.id);
   }
   render() {
-    console.log("ddd", this.props);
-
     const render = this.props.units ? (
       <div>
         <Div>

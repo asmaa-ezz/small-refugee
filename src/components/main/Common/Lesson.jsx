@@ -4,6 +4,8 @@ import ButtonBorde from "../../common/ButtonBorde";
 import ButtonLesson from "../../common/ButtonLesson";
 import CardPageLesson from "../../common/CardPageLesson";
 import PostCommentLesson from "../../common/PostCommentLesson";
+import CreatePostLesson from "../../common/CreatePostLesson";
+
 import Video from "../../common/Video";
 import { CARDTITLE, TURQUOISE, ORANGE } from "../../../constant/Color";
 
@@ -41,7 +43,7 @@ class Lesson extends Component {
   componentDidMount() {
     this.props.lessons &&
       this.setState({
-        videos: [...this.state.videos, this.props.lessons.video_set[0]],
+        videos: [...this.state.videos, this.props.lessons.lesson_set[0]],
         id: this.props.lessons.lesson_set[0].id,
         idQuiz: this.props.lessons.lesson_set[0].quiz
       });
@@ -52,6 +54,8 @@ class Lesson extends Component {
   }
 
   render() {
+    console.log("11", this.props.lessons);
+
     const render = this.props.lessons ? (
       <div>
         <Div>
@@ -79,13 +83,15 @@ class Lesson extends Component {
         </Div>
         <div className="row">
           <div className="col-3" style={{ paddingBottom: "10px" }}>
-            {this.props.lessons.video_set.map(item => {
+            {this.props.lessons.lesson_set.map(item => {
               return (
                 <ButtonLesson
                   handleButton={data => {
                     const dataOnes = this.state.videos.filter(item => {
                       return item.id === data.id;
                     });
+                    console.log("mm", data);
+
                     dataOnes.length < 1 &&
                       this.setState({
                         videos: [...this.state.videos, data],
@@ -106,7 +112,13 @@ class Lesson extends Component {
             {this.props.lessons &&
               this.state.videos.map(item => {
                 if (item.id === this.state.id) {
-                  return <Video url={item.link} />;
+                  return (
+                    <Video
+                      url={
+                        "http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
+                      }
+                    />
+                  );
                 } else return null;
               })}
             <CardPageLesson
@@ -131,7 +143,17 @@ class Lesson extends Component {
           </div>
         </div>
         <div>
-          <PostCommentLesson history={this.props.history} />
+          {this.state.id && (
+            <React.Fragment>
+              <CreatePostLesson id={this.state.id} />
+              <br />
+              <PostCommentLesson
+                history={this.props.history}
+                id={this.state.id}
+                dataStitic={this.props.dataStitic}
+              />
+            </React.Fragment>
+          )}
         </div>
       </div>
     ) : (

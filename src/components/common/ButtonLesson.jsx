@@ -43,23 +43,23 @@ class ButtonLesson extends Component {
     isFocus: false
   };
 
-  componentDidMount() {
-    this.props.id === 3 && this.setState({ isFocus: true });
-  }
   render() {
+    console.log("bbb", this.props);
+
     const { data, text, isView, handleButton, id } = this.props;
     const { isFocus } = this.state;
     return (
       <Div
-        style={(isFocus && focus) || (isView && focus)}
+        // style={isFocus && focus}
         onClick={() => {
           handleButton(data);
-          // this.props.OpenLessonClikButton(data.link);
           this.setState({ isFocus: true });
         }}
       >
         <Circle />
-        <Text style={(isFocus && focusText) || (isView && focusText)}>
+        <Text
+        // style={isFocus && focusText}
+        >
           {text}
         </Text>
       </Div>

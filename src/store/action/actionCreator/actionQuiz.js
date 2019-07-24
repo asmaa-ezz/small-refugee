@@ -1,4 +1,4 @@
-import { GET_QUIZ, OPEN_QUIZ, ANSWER_QUIZ, DONE_TEST, END_TEST } from '../actionTypes';
+import { GET_QUIZ, OPEN_QUIZ, ANSWER_QUIZ, DONE_TEST, END_TEST, GET_POSTS_LESSON } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -77,7 +77,7 @@ export const AnswerQuiz = (testId, quizId, text) => dispatch => {
 
 export const FetchDoneTest = (lessonId) => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = `${API}main/user-lesson/`;
+  const url = `${API}/main/user-lesson/`;
 
   const Token = GetToken();
 

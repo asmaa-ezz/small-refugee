@@ -135,16 +135,16 @@ class PostLesson extends Component {
         <div className="body">
           <TextPost>{text}</TextPost>
         </div>
-        <hr style={{ width: "106%", marginRight: "-15px" }} />
-        <CreateCommentLesson list={comments} history={history} />
+        <hr style={{ width: "103.4%", marginRight: "-15px" }} />
         {this.props.dataStitic && (
           <CommentsListLesson
-            url={url}
+            list={comments}
             id={id}
             history={history}
             dataStitic={this.props.dataStitic}
           />
         )}
+        <CreateCommentLesson history={history} id={id} />
       </DivPost>
     ) : (
       <div className="spinner-border text-primary" role="status">

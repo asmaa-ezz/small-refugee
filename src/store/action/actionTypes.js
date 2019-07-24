@@ -23,6 +23,10 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_UNITS = 'GET_UNITS';
 export const GET_LESSONS = 'GET_LESSONS';
 export const START_LESSON = 'START_LESSON';
+export const GET_POSTS_LESSON = 'GET_POSTS_LESSON';
+export const ADD_POST_LESSON = 'ADD_POST_LESSON';
+export const ADD_COMMENT_LESSON = 'ADD_COMMENT_LESSON';
+
 
 
 // Action of Quiz
@@ -32,4 +36,3 @@ export const OPEN_QUIZ = 'OPEN_QUIZ';
 export const ANSWER_QUIZ = 'ANSWER_QUIZ';
 export const DONE_TEST = 'DONE_TEST';
 export const END_TEST = 'END_TEST';
-

@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import UserDefault from "../../assets/image/UserDefault.png";
 
-import { AddCommentPost } from "../../store/action/actionCreator/actionPost";
+import { AddCommentPostLesson } from "../../store/action/actionCreator/actionLesson";
 
 const HeaderComment = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ const FormStyle = styled.form`
   background-color: #edeef0;
   display: flex;
   justify-content: space-between;
-  width: 106%;
+  width: 103.3%;
   margin-top: -16px;
   margin-right: -14px;
   padding: 14px 26px 0 16px;
@@ -61,13 +61,11 @@ class CreateCommentLesson extends Component {
   handleSubmitComment = values => {
     const data = {
       text: values.text,
-      post: this.props.url,
-      id: this.props.id
+      lesson_post: this.props.id
     };
-    this.props.AddCommentPost(data);
+    this.props.AddCommentPostLesson(data);
   };
   render() {
-    const { fullName } = this.props.dataStitic;
     const { history } = this.props;
     return (
       <Formik
@@ -79,30 +77,33 @@ class CreateCommentLesson extends Component {
           <FormStyle onSubmit={props.handleSubmit}>
             <div className="form-group">
               <HeaderComment className="header">
-                <UserInfo className="user-name">
-                  <ImgUser
-                    src={UserDefault}
-                    alt="user-img"
-                    onClick={() => {
-                      history.push(`/profile`);
-                    }}
-                  />
-                  <div
-                    onClick={() => {
-                      history.push(`/profile`);
-                    }}
-                    style={{
-                      color: "#8283D9",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      marginLeft: "8px",
-                      marginTop: "10px",
-                      cursor: "pointer"
-                    }}
-                  >
-                    {fullName}
-                  </div>
-                </UserInfo>
+                {this.props.user && (
+                  <UserInfo className="user-name">
+                    <ImgUser
+                      src={this.props.user.avatar}
+                      alt="user-img"
+                      onClick={() => {
+                        history.push(`/profile`);
+                      }}
+                    />
+                    <div
+                      onClick={() => {
+                        history.push(`/profile`);
+                      }}
+                      style={{
+                        color: "#8283D9",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        marginLeft: "8px",
+                        marginTop: "10px",
+                        cursor: "pointer"
+                      }}
+                    >
+                      {this.props.user.first_name}
+                      {this.props.user.last_name}
+                    </div>
+                  </UserInfo>
+                )}
               </HeaderComment>
               <Field
                 type="text"
@@ -143,13 +144,13 @@ class CreateCommentLesson extends Component {
 }
 const mapStatusToProps = state => {
   return {
-    // newComment: state.post.newComment
+    user: state.auth.user
   };
 };
 
 const mapdispatchToProps = dispatch => {
   return {
-    // AddCommentPost: data => dispatch(AddCommentPost(data))
+    AddCommentPostLesson: data => dispatch(AddCommentPostLesson(data))
   };
 };
 

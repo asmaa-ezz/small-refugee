@@ -20,6 +20,25 @@ const lessonReducer = (state = initState, action) => {
         ...state,
         vidoOpen: action.payload
       }
+    case 'GET_POSTS_LESSON':
+      return {
+        ...state,
+        listPostLesson: action.payload
+      }
+    case 'ADD_POST_LESSON':
+      return {
+        ...state,
+        listPostLesson: [...state.listPostLesson, action.payload]
+      }
+    case 'ADD_COMMENT_LESSON':
+      return {
+        ...state,
+        commentLesson: action.payload,
+        listPostLesson: state.listPostLesson.map(item => {
+          return (item.id === action.payload.lesson_post_id) ?
+            { ...item, comments: [...item.comments, action.payload] } : item
+        }),
+      }
     default:
       return state;
   }

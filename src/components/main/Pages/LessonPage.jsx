@@ -25,7 +25,11 @@ class LessonPage extends Component {
           </div>
           <div className="col-10">
             {this.props.lessons ? (
-              <Lesson history={history} lessons={this.props.lessons} />
+              <Lesson
+                history={history}
+                lessons={this.props.lessons}
+                dataStitic={this.props.dataStitic}
+              />
             ) : (
               <div className="spinner-border text-primary" role="status">
                 <span className="sr-only">Loading...</span>
