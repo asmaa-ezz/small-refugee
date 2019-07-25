@@ -30,7 +30,7 @@ const DivButton = styled.div`
 class CardResultTest extends Component {
   componentDidMount() {
     this.props.isSuccessful === true &&
-      this.props.FetchDoneTest(this.props.idLesson);
+      this.props.FetchDoneTest(this.props.idTest);
   }
   render() {
     const { isSuccessful, history, unitId } = this.props;
@@ -44,7 +44,7 @@ class CardResultTest extends Component {
             {unitId && (
               <DivButton
                 onClick={() => {
-                  window.location = `/learn/unit/${unitId.id}`;
+                  window.location = `/learn/unit/${unitId}`;
                 }}
               >
                 الإنتقال للدرس التالي
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    FetchDoneTest: lessonId => dispatch(FetchDoneTest(lessonId))
+    FetchDoneTest: id => dispatch(FetchDoneTest(id))
   };
 };
 

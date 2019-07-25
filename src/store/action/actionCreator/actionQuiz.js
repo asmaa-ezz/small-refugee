@@ -75,30 +75,22 @@ export const AnswerQuiz = (testId, quizId, text) => dispatch => {
 
 
 
-export const FetchDoneTest = (lessonId) => dispatch => {
+export const FetchDoneTest = idTest => dispatch => {
   const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-  const url = `${API}/main/user-lesson/`;
+  const url = `${API}test/${idTest}/done/`;
 
   const Token = GetToken();
-
-  const data = {
-    lesson: lessonId,
-    is_done: true
-  }
-
   fetch((proxyurl + url), {
-    method: 'POST',
     headers: {
       'content-type': 'application/json',
       "Authorization": `JWT ${Token}`,
     },
-    body: JSON.stringify(data)
   })
     .then(res => res.json())
     .then(object => {
       dispatch({
         type: END_TEST,
-        payload: object.unit[0],
+        payload: object[0].unit,
       })
     })
 };

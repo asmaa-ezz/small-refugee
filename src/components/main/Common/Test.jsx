@@ -7,11 +7,7 @@ import Quiz from "../../common/Quiz";
 import CardResultTest from "../../common/CardResultTest";
 
 import { CARDTITLE, TURQUOISE, RED, GREEN2 } from "../../../constant/Color";
-import {
-  GetQuiz,
-  OpenNewQuiz,
-  FetchDoneTest
-} from "../../../store/action/actionCreator/actionQuiz";
+import { GetQuiz } from "../../../store/action/actionCreator/actionQuiz";
 
 const Div = styled.div`
   background-color: ${CARDTITLE};
@@ -52,6 +48,8 @@ class Test extends Component {
   }
 
   render() {
+    console.log("fff", this.props.id);
+
     return (
       <div>
         <Div>
@@ -96,6 +94,7 @@ class Test extends Component {
                   isSuccessful={this.props.isSuccessful}
                   history={this.props.history}
                   idLesson={this.props.idLesson}
+                  idTest={this.props.id}
                 />
               ) : (
                 <Quiz
@@ -129,9 +128,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    GetQuiz: id => dispatch(GetQuiz(id)),
-    OpenNewQuiz: id => dispatch(OpenNewQuiz(id)),
-    FetchDoneTest: lessonId => dispatch(FetchDoneTest(lessonId))
+    GetQuiz: id => dispatch(GetQuiz(id))
   };
 };
 
