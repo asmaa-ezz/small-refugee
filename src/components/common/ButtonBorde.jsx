@@ -8,33 +8,39 @@ const ButtonBorde = ({
   padding,
   height,
   marginTop,
-  backgroundColor
+  backgroundColor,
+  isDisabled,
+  history
 }) => {
   return (
     <React.Fragment>
-      <Link
-        to={path}
-       
+      <div
+        // to={path}
+        onClick={() => {
+          isDisabled && history.push(path);
+        }}
       >
-        <div  style={{
-          backgroundColor: backgroundColor || PURPLE,
-          marginTop: marginTop || "auto",
-          border: "1px solid #fff",
-          // textAlign: "center",
-          borderRadius: "5px",
-          // fontFamily: "Cairo, sans-serif"
-        }} > 
-        <div  style={{
-          // marginTop: marginTop || "auto",
-          color: "#fff",
-          padding: padding,
-          textAlign: "center",
-          fontFamily: "Cairo, sans-serif"
-        }} > {text}</div>
-        
-         </div>
-       
-      </Link>
+        <div
+          style={{
+            backgroundColor: backgroundColor || PURPLE,
+            marginTop: marginTop || "auto",
+            border: "1px solid #fff",
+            borderRadius: "5px",
+            cursor: "pointer"
+          }}
+        >
+          <div
+            style={{
+              color: "#fff",
+              padding: padding,
+              textAlign: "center",
+              fontFamily: "Cairo, sans-serif"
+            }}
+          >
+            {text}
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

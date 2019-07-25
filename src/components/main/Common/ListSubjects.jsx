@@ -69,7 +69,8 @@ class ListSubjects extends Component {
               stage={"الصف الرابع الإبتدائي"}
               staticDetalis={"الوحدة الحالية"}
               details={"الوحدة الأولى"}
-              achieve={90}
+              achieve={20}
+              exam={item.exam}
             />
           );
         })}

@@ -53,6 +53,8 @@ class Video extends Component {
   }
 
   handleVido = () => {
+    console.log("cccccccc", this.props.url);
+
     return (
       <VideoPlayer
         controls={true}

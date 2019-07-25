@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { OpenLessonClikButton } from "../../store/action/actionCreator/actionLesson";
-import { GREEN, BORDER } from "../../constant/Color";
+import { GREEN, BORDER, PURPLE } from "../../constant/Color";
 
 const Div = styled.div`
   background-color: #fff;
@@ -20,7 +20,7 @@ const Circle = styled.div`
   width: 21px;
   height: 21px;
   border-radius: 50%;
-  background-color: ${GREEN};
+  background-color: ${PURPLE};
   border: 2px solid #fff;
   margin-left: 10px;
 `;
@@ -31,37 +31,36 @@ const Text = styled.div`
 `;
 
 const focus = {
-  backgroundColor: GREEN
+  backgroundColor: PURPLE
 };
 
 const focusText = {
   color: "#fff"
 };
 
+const done = {
+  backgroundColor: GREEN
+};
+
 class ButtonLesson extends Component {
-  state = {
-    isFocus: false
-  };
+  // state = {
+  //   isFocus: false
+  // };
 
   render() {
-    console.log("bbb", this.props);
+    const { isFocus, data, text, isView, handleButton, id } = this.props;
+    // const {  } = this.state;
 
-    const { data, text, isView, handleButton, id } = this.props;
-    const { isFocus } = this.state;
     return (
       <Div
-        // style={isFocus && focus}
+        style={isFocus ? focus : null}
         onClick={() => {
           handleButton(data);
-          this.setState({ isFocus: true });
+          // this.setState({ isFocus: true });
         }}
       >
-        <Circle />
-        <Text
-        // style={isFocus && focusText}
-        >
-          {text}
-        </Text>
+        <Circle style={data.done ? done : null} />
+        <Text style={isFocus ? focusText : null}>{text}</Text>
       </Div>
     );
   }

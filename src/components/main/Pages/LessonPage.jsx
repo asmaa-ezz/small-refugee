@@ -5,12 +5,12 @@ import UserInfoPage from "../../common/UserInfoPage";
 import Lesson from "../Common/Lesson";
 
 class LessonPage extends Component {
-  componentDidMount() {
-    const { match } = this.props;
-    this.props.GetLessons(match.params.id);
-  }
+  // componentDidMount() {
+  //   const { match } = this.props;
+  //   this.props.GetLessons(match.params.id);
+  // }
   render() {
-    const { history } = this.props;
+    const { history, match } = this.props;
     const { userImage, fullName, stage } = this.props.dataStitic;
     return (
       <div className="container">
@@ -24,17 +24,12 @@ class LessonPage extends Component {
             />
           </div>
           <div className="col-10">
-            {this.props.lessons ? (
-              <Lesson
-                history={history}
-                lessons={this.props.lessons}
-                dataStitic={this.props.dataStitic}
-              />
-            ) : (
-              <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            )}
+            <Lesson
+              idUnit={match.params.id}
+              history={history}
+              lessons={this.props.lessons}
+              dataStitic={this.props.dataStitic}
+            />
           </div>
         </div>
       </div>
@@ -42,19 +37,21 @@ class LessonPage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    lessons: state.lesson.lessons
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     lessons: state.lesson.lessons
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    GetLessons: id => dispatch(GetLessons(id))
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     GetLessons: id => dispatch(GetLessons(id))
+//   };
+// };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LessonPage);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(LessonPage);
+
+export default LessonPage;

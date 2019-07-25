@@ -1,4 +1,4 @@
-import { GET_ALL_SUBJECT, ADD_POST, GET_POSTS, ADD_COMMENT, GET_COMMENTS } from '../actionTypes';
+import { GET_ALL_SUBJECT, ADD_POST, GET_POSTS, ADD_COMMENT, GET_COMMENTS, DELETE_POST, EDIT_POST } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -119,3 +119,52 @@ export const AddCommentPost = data => dispatch => {
       })
     })
 };
+
+
+export const DeletePost = id => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = `${API}social/post/${id}/`;
+
+  const Token = GetToken();
+
+  fetch((proxyurl + url), {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      "Authorization": `JWT ${Token}`,
+    },
+  })
+    .then(() => {
+      dispatch({
+        type: DELETE_POST,
+        payload: id
+      })
+    })
+};
+
+export const EditPost = (id, text) => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = `${API}social/post/${id}/`;
+
+  const Token = GetToken();
+
+  const data = {
+    text: text,
+  }
+  fetch((proxyurl + url), {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      "Authorization": `JWT ${Token}`,
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(newPost => {
+      dispatch({
+        type: EDIT_POST,
+        payload: newPost
+      })
+    })
+};
+

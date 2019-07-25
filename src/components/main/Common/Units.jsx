@@ -49,7 +49,7 @@ class Units extends Component {
           <Body>
             <ButtonBorde
               path="/"
-              text={true ? "إختبار المادة غير متاح" : "إختبر الأن"}
+              text={this.props.exam ? "إختبار المادة غير متاح" : "إختبر الأن"}
               height={"40px"}
               padding="5px 35px"
               marginTop="4px"

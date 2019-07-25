@@ -16,7 +16,8 @@ export const ADD_POST = 'ADD_POST';
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
-
+export const DELETE_POST = 'DELETE_POST';
+export const EDIT_POST = 'EDIT_POST';
 
 // Action of Lesson
 
@@ -26,8 +27,7 @@ export const START_LESSON = 'START_LESSON';
 export const GET_POSTS_LESSON = 'GET_POSTS_LESSON';
 export const ADD_POST_LESSON = 'ADD_POST_LESSON';
 export const ADD_COMMENT_LESSON = 'ADD_COMMENT_LESSON';
-
-
+export const CHANGE_LESSON_NOW = 'CHANGE_LESSON_NOW';
 
 // Action of Quiz
 

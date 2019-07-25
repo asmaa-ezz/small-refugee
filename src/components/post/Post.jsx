@@ -11,6 +11,10 @@ import CommentsList from "./CommentsList";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 import Rating from "../../assets/image/Rating.png";
 import UserDefault from "../../assets/image/UserDefault.png";
+import {
+  DeletePost,
+  EditPost
+} from "../../store/action/actionCreator/actionPost";
 
 const DivPost = styled.div`
   background-color: #fff;
@@ -88,20 +92,24 @@ class Post extends Component {
   handleEdit = (idPost, text, subject) => {
     Swal.fire({
       title: "Edit Post",
-      html:
-        `<input id="swal-input1" class="swal2-input" placeholder="Enter post" value='${text}'>` +
-        `<input id="swal-input2" class="swal2-input" placeholder="Enter subject" value='${subject}'>`,
+      html: `<input id="swal-input1" class="swal2-input" placeholder="Enter post" value='${text}'>`,
       focusConfirm: false,
       preConfirm: () => {
         return {
-          text: document.getElementById("swal-input1").value,
-          subject: document.getElementById("swal-input2").value,
-          id: idPost
+          data: {
+            text: document.getElementById("swal-input1").value,
+            id: idPost
+          }
         };
       }
-    }).then(result => {
-      Swal.fire(JSON.stringify(result));
-    });
+    })
+      .then(res => JSON.stringify(res))
+      .then(result => {
+        const a = JSON.parse(result);
+        const { id, text } = a.value.data;
+        this.props.EditPost(id, text);
+        // Swal.fire(JSON.stringify(result));
+      });
   };
 
   handleDelet = idPost => {
@@ -124,8 +132,8 @@ class Post extends Component {
         reverseButtons: true
       })
       .then(result => {
-        // call API
         if (result.value) {
+          this.props.DeletePost(idPost);
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your post has been deleted.",
@@ -161,11 +169,12 @@ class Post extends Component {
       comments
     } = this.props.data;
 
-    return this.props.data ? (
-      <DivPost>
-        <HeaderPost className="header">
-          <UserInfo className="user-name">
-            {/* {!user_avatar.includes("images") ? (
+    return (
+      this.props.data && (
+        <DivPost>
+          <HeaderPost className="header">
+            <UserInfo className="user-name">
+              {/* {!user_avatar.includes("images") ? (
               <ImgUser
                 src={user_avatar}
                 alt="user-img"
@@ -174,49 +183,101 @@ class Post extends Component {
                 }}
               />
             ) : ( */}
-            <ImgUser
-              src={UserDefault}
-              alt="user-img"
-              onClick={() => {
-                history.push(`/username/${user_username}`);
-              }}
-            />
-            {/* )} */}
-            <div
-              onClick={() => {
-                history.push(`/username/${user_username}`);
-              }}
-              style={{
-                color: `${PURPLE}`,
-                fontSize: "12px",
-                fontWeight: 700,
-                marginLeft: "8px",
-                marginTop: "10px",
-                cursor: "pointer"
-              }}
-            >
-              {user_first_name} {user_last_name}
-            </div>
-            <Moment fromNow ago style={{ fontSize: "9px", marginTop: "12px" }}>
-              {created_at}
-            </Moment>
-          </UserInfo>
-          <Type className="type">
-            {subject_title && (
-              <TypeClass
+              <ImgUser
+                src={UserDefault}
+                alt="user-img"
                 onClick={() => {
-                  history.push(`/posts/${subject_title}`);
+                  history.push(`/username/${user_username}`);
+                }}
+              />
+              {/* )} */}
+              <div
+                onClick={() => {
+                  history.push(`/username/${user_username}`);
+                }}
+                style={{
+                  color: `${PURPLE}`,
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  marginLeft: "8px",
+                  marginTop: "10px",
+                  cursor: "pointer"
                 }}
               >
-                {subject_title}
-              </TypeClass>
-            )}
-            <RatingPost>
-              <img src={Rating} alt="Rating" style={{ marginLeft: "4px" }} />
-              <span style={{ color: "#fff", fontSize: "10px" }}>13</span>
-            </RatingPost>
-          </Type>
-          {/* <div style={{ width: "50%" }}>
+                {user_first_name} {user_last_name}
+              </div>
+              <Moment
+                fromNow
+                ago
+                style={{ fontSize: "9px", marginTop: "12px" }}
+              >
+                {created_at}
+              </Moment>
+            </UserInfo>
+            <Type className="type">
+              {subject_title && (
+                <TypeClass
+                  onClick={() => {
+                    history.push(`/posts/${subject_title}`);
+                  }}
+                >
+                  {subject_title}
+                </TypeClass>
+              )}
+              <RatingPost>
+                <img src={Rating} alt="Rating" style={{ marginLeft: "4px" }} />
+                <span style={{ color: "#fff", fontSize: "10px" }}>13</span>
+              </RatingPost>
+              {this.props.user && this.props.user.username === user_username && (
+                <div className="text-right">
+                  <div className="dropdown">
+                    <button
+                      className="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenu2"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background: "none",
+                        color: "rgb(130, 131, 217)",
+                        border: "none",
+                        fontSize: "30px",
+                        outline: "none",
+                        marginRight: "14px"
+                      }}
+                    />
+                    <div
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenu2"
+                    >
+                      <button
+                        style={{ cursor: "pointer" }}
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => this.handleEdit(id, text, subject_title)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        style={{ cursor: "pointer" }}
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => this.handleDelet(id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Type>
+            {/* <div style={{ width: "50%" }}>
             <div
               style={{
                 borderRadius: "50%",
@@ -234,44 +295,13 @@ class Post extends Component {
               {created_at}
             </Moment>
           </div>
-          {this.props.user && this.props.user.username === user_username && (
-            <div className="text-right">
-              <div className="dropdown">
-                <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenu2"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    onClick={() => this.handleEdit(id, text, subject_title)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="dropdown-item"
-                    type="button"
-                    onClick={() => this.handleDelet(id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          )} */}
-        </HeaderPost>
+           */}
+          </HeaderPost>
 
-        <div className="body">
-          <TextPost>{text}</TextPost>
+          <div className="body">
+            <TextPost>{text}</TextPost>
 
-          {/* <p className="text">{text}</p>
+            {/* <p className="text">{text}</p>
           <div>likes: {likes}</div>
           <button
             type="button"
@@ -280,36 +310,43 @@ class Post extends Component {
           >
             {comment_count} Comment
           </button> */}
-        </div>
-        <hr style={{ width: "106%", marginRight: "-15px" }} />
-        <CommentsList list={comments} history={history} />
-        {this.props.dataStitic && (
-          <CreateComment
-            url={url}
-            id={id}
-            history={history}
-            dataStitic={this.props.dataStitic}
-          />
-        )}
+          </div>
+          <hr style={{ width: "106%", marginRight: "-15px" }} />
+          <CommentsList list={comments} history={history} />
+          {this.props.dataStitic && (
+            <CreateComment
+              url={url}
+              id={id}
+              history={history}
+              dataStitic={this.props.dataStitic}
+            />
+          )}
 
-        {/* {this.state.viewComment && (
+          {/* {this.state.viewComment && (
           <div>
             <CreateComment url={url} id={id} />
             <ListComments id={id} />
           </div>
         )} */}
-      </DivPost>
-    ) : (
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
+        </DivPost>
+      )
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    DeletePost: id => dispatch(DeletePost(id)),
+    EditPost: (id, text) => dispatch(EditPost(id, text))
+  };
+};
 
 const mapStateToProps = state => {
   return {
     user: state.auth.user
   };
 };
-export default connect(mapStateToProps)(Post);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Post);

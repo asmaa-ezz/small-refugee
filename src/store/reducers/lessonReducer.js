@@ -10,10 +10,22 @@ const lessonReducer = (state = initState, action) => {
         units: action.payload,
       }
     case 'GET_LESSONS':
+      const data = action.payload.lesson_set.filter(item => {
+        return item.done === false;
+      });
       return {
         ...state,
         lessons: action.payload,
-        vidoOpen: action.payload.video_set[0].link
+        lessonNow: data[0] || action.payload.lesson_set[action.payload.lesson_set.length - 1],
+        vidoOpen: action.payload.lesson_set[0].video
+      }
+    case 'CHANGE_LESSON_NOW':
+      const newLesson = state.lessons.lesson_set.filter(item => {
+        return item.id === action.payload
+      });
+      return {
+        ...state,
+        lessonNow: newLesson[0]
       }
     case 'START_LESSON':
       return {
@@ -26,6 +38,8 @@ const lessonReducer = (state = initState, action) => {
         listPostLesson: action.payload
       }
     case 'ADD_POST_LESSON':
+      console.log('reducer ', action.payload);
+
       return {
         ...state,
         listPostLesson: [...state.listPostLesson, action.payload]

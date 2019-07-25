@@ -1,4 +1,4 @@
-import { GET_UNITS, GET_LESSONS, START_LESSON, GET_POSTS_LESSON, ADD_POST_LESSON, ADD_COMMENT_LESSON } from '../actionTypes';
+import { GET_UNITS, GET_LESSONS, START_LESSON, GET_POSTS_LESSON, ADD_POST_LESSON, ADD_COMMENT_LESSON, CHANGE_LESSON_NOW } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -95,7 +95,6 @@ export const AddPostLesson = (text, id) => dispatch => {
   const data = {
     text: text,
     lesson: id
-
   }
   fetch((proxyurl + url), {
     method: 'POST',
@@ -107,6 +106,7 @@ export const AddPostLesson = (text, id) => dispatch => {
   })
     .then(res => res.json())
     .then(newPost => {
+      console.log('action newPost', newPost);
 
       dispatch({
         type: ADD_POST_LESSON,
@@ -140,4 +140,12 @@ export const AddCommentPostLesson = data => dispatch => {
     })
 };
 
+export const ChangeLessonNow = id => dispatch => {
+
+  dispatch({
+    type: CHANGE_LESSON_NOW,
+    payload: id
+  })
+
+};
 

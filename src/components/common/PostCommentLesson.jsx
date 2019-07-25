@@ -8,12 +8,20 @@ class PostCommentLesson extends Component {
     this.props.GetPostLesson(this.props.id);
   }
 
-  render() {
-    console.log(this.props.listPostLesson && this.props.listPostLesson);
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props.id != nextProps.id;
+  // }
 
+  render() {
+    const listDataFilter =
+      this.props.listPostLesson &&
+      this.props.listPostLesson.filter(item => {
+        return item.lesson === this.props.id;
+      });
     const { history } = this.props;
-    const mapPost = this.props.listPostLesson ? (
-      this.props.listPostLesson.map(item => {
+    const mapPost =
+      this.props.listPostLesson &&
+      listDataFilter.map(item => {
         return (
           <React.Fragment>
             <PostLesson
@@ -24,12 +32,7 @@ class PostCommentLesson extends Component {
             />
           </React.Fragment>
         );
-      })
-    ) : (
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    );
+      });
 
     return <div>{mapPost}</div>;
   }

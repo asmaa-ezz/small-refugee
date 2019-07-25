@@ -61,12 +61,14 @@ const TextComment = styled.p`
 class CommentsList extends Component {
   render() {
     const { list, history } = this.props;
-    const comments = list.map(comment => {
-      return (
-        <DivComment key={comment.id}>
-          <HeaderComment className="header">
-            <UserInfo className="user-name">
-              {/* {!comment.user_avatar.includes("images") ? (
+    const comments =
+      list &&
+      list.map(comment => {
+        return (
+          <DivComment key={comment.id}>
+            <HeaderComment className="header">
+              <UserInfo className="user-name">
+                {/* {!comment.user_avatar.includes("images") ? (
                 <ImgUser
                   src={comment.user_avatar}
                   alt="user-img"
@@ -75,50 +77,50 @@ class CommentsList extends Component {
                   }}
                 />
               ) : ( */}
-              <ImgUser
-                src={UserDefault}
-                alt="user-img"
-                onClick={() => {
-                  history.push(`/username/${comment.user_username}`);
-                }}
-              />
-              {/* )} */}
-              <div
-                onClick={() => {
-                  history.push(`/username/${comment.user_username}`);
-                }}
-                style={{
-                  color: `${PURPLE}`,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  marginLeft: "8px",
-                  marginTop: "10px",
-                  cursor: "pointer"
-                }}
-              >
-                {comment.user_first_name} {comment.user_last_name}
-              </div>
-              <Moment
-                fromNow
-                ago
-                style={{ fontSize: "9px", marginTop: "12px" }}
-              >
-                {comment.created_at}
-              </Moment>
-            </UserInfo>
-            <Type className="type">
-              <RatingComment>
-                {/* <img src={RatingColor} alt="Rating" /> */}
-              </RatingComment>
-            </Type>
-          </HeaderComment>
-          <div className="body">
-            <TextComment>{comment.text}</TextComment>
-          </div>
-          <hr style={{ width: "112%", marginRight: "-29px" }} />
-        </DivComment>
-      );
-    });
+                <ImgUser
+                  src={UserDefault}
+                  alt="user-img"
+                  onClick={() => {
+                    history.push(`/username/${comment.user_username}`);
+                  }}
+                />
+                {/* )} */}
+                <div
+                  onClick={() => {
+                    history.push(`/username/${comment.user_username}`);
+                  }}
+                  style={{
+                    color: `${PURPLE}`,
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    marginLeft: "8px",
+                    marginTop: "10px",
+                    cursor: "pointer"
+                  }}
+                >
+                  {comment.user_first_name} {comment.user_last_name}
+                </div>
+                <Moment
+                  fromNow
+                  ago
+                  style={{ fontSize: "9px", marginTop: "12px" }}
+                >
+                  {comment.created_at}
+                </Moment>
+              </UserInfo>
+              <Type className="type">
+                <RatingComment>
+                  {/* <img src={RatingColor} alt="Rating" /> */}
+                </RatingComment>
+              </Type>
+            </HeaderComment>
+            <div className="body">
+              <TextComment>{comment.text}</TextComment>
+            </div>
+            <hr style={{ width: "112%", marginRight: "-29px" }} />
+          </DivComment>
+        );
+      });
 
     return <React.Fragment>{comments}</React.Fragment>;
   }
