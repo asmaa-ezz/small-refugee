@@ -38,8 +38,6 @@ const lessonReducer = (state = initState, action) => {
         listPostLesson: action.payload
       }
     case 'ADD_POST_LESSON':
-      console.log('reducer ', action.payload);
-
       return {
         ...state,
         listPostLesson: [...state.listPostLesson, action.payload]

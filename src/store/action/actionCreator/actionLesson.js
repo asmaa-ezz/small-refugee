@@ -106,8 +106,6 @@ export const AddPostLesson = (text, id) => dispatch => {
   })
     .then(res => res.json())
     .then(newPost => {
-      console.log('action newPost', newPost);
-
       dispatch({
         type: ADD_POST_LESSON,
         payload: newPost

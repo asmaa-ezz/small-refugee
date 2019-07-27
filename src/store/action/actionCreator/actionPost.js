@@ -1,4 +1,4 @@
-import { GET_ALL_SUBJECT, ADD_POST, GET_POSTS, ADD_COMMENT, GET_COMMENTS, DELETE_POST, EDIT_POST } from '../actionTypes';
+import { GET_ALL_SUBJECT, ADD_POST, GET_POSTS, ADD_COMMENT, GET_COMMENTS, DELETE_POST, EDIT_POST, ADD_LIKE_POST, DELETE_LIKE_POST } from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -168,3 +168,49 @@ export const EditPost = (id, text) => dispatch => {
     })
 };
 
+export const AddLike = (idPost) => dispatch => {
+  // const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  // const url = `${API}`;
+
+  // const Token = GetToken();
+
+  // fetch((proxyurl + url), {
+  //   method: 'GET',
+  //   headers: {
+  //     'content-type': 'application/json',
+  //     "Authorization": `JWT ${Token}`,
+  //   },
+  //   body: JSON.stringify(data)
+  // })
+  //   .then(res => res.json())
+  //   .then(like => {
+  console.log('ccccc', idPost);
+
+  dispatch({
+    type: ADD_LIKE_POST,
+    payload: idPost
+  })
+  // })
+};
+export const DeleteLike = (idPost) => dispatch => {
+  // const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  // const url = `${API}`;
+
+  // const Token = GetToken();
+
+  // fetch((proxyurl + url), {
+  //   method: 'GET',
+  //   headers: {
+  //     'content-type': 'application/json',
+  //     "Authorization": `JWT ${Token}`,
+  //   },
+  //   body: JSON.stringify(data)
+  // })
+  //   .then(res => res.json())
+  //   .then(like => {
+  dispatch({
+    type: DELETE_LIKE_POST,
+    payload: idPost
+  })
+  // })
+};

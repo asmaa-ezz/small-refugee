@@ -8,8 +8,8 @@ import { connect } from "react-redux";
 import CreateComment from "./CreateComment";
 import ListComments from "./ListComments";
 import CommentsList from "./CommentsList";
+import LikePost from "./LikePost";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
-import Rating from "../../assets/image/Rating.png";
 import UserDefault from "../../assets/image/UserDefault.png";
 import {
   DeletePost,
@@ -59,16 +59,6 @@ const TypeClass = styled.div`
   height: 21px;
   margin-left: 12px;
   cursor: pointer;
-`;
-
-const RatingPost = styled.div`
-  background-color: ${TURQUOISE};
-  border-radius: 10px;
-  width: 38px;
-  height: 21px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TextPost = styled.p`
@@ -166,7 +156,9 @@ class Post extends Component {
       user_avatar,
       url,
       created_at,
-      comments
+      comments,
+      is_liked,
+      likes_count
     } = this.props.data;
 
     return (
@@ -224,10 +216,8 @@ class Post extends Component {
                   {subject_title}
                 </TypeClass>
               )}
-              <RatingPost>
-                <img src={Rating} alt="Rating" style={{ marginLeft: "4px" }} />
-                <span style={{ color: "#fff", fontSize: "10px" }}>13</span>
-              </RatingPost>
+              <LikePost isLike={is_liked} countLike={likes_count} idPost={id} />
+
               {this.props.user && this.props.user.username === user_username && (
                 <div className="text-right">
                   <div className="dropdown">
@@ -277,39 +267,9 @@ class Post extends Component {
                 </div>
               )}
             </Type>
-            {/* <div style={{ width: "50%" }}>
-            <div
-              style={{
-                borderRadius: "50%",
-                width: "35px",
-                height: "35px",
-                marginRight: "10px",
-                background: "darkgray",
-                display: "inline-block"
-              }}
-            />
-            <Link to={`/username/${user_username}`}>
-              {user_first_name} {user_last_name}
-            </Link>
-            <Moment fromNow ago className="form-text small text-black-50">
-              {created_at}
-            </Moment>
-          </div>
-           */}
           </HeaderPost>
-
           <div className="body">
             <TextPost>{text}</TextPost>
-
-            {/* <p className="text">{text}</p>
-          <div>likes: {likes}</div>
-          <button
-            type="button"
-            className="btn btn-primary btn-sm"
-            onClick={() => this.handleCommet()}
-          >
-            {comment_count} Comment
-          </button> */}
           </div>
           <hr style={{ width: "106%", marginRight: "-15px" }} />
           <CommentsList list={comments} history={history} />
@@ -321,13 +281,6 @@ class Post extends Component {
               dataStitic={this.props.dataStitic}
             />
           )}
-
-          {/* {this.state.viewComment && (
-          <div>
-            <CreateComment url={url} id={id} />
-            <ListComments id={id} />
-          </div>
-        )} */}
         </DivPost>
       )
     );

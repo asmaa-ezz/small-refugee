@@ -48,8 +48,6 @@ class Test extends Component {
   }
 
   render() {
-    console.log("fff", this.props.id);
-
     return (
       <div>
         <Div>

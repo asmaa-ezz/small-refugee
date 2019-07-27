@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import UserDefault from "../../assets/image/UserDefault.png";
-// import RatingColor from "../../assets/image/RatingColor.png";
+import LikePost from "./LikePost";
 
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 
@@ -109,9 +109,10 @@ class CommentsList extends Component {
                 </Moment>
               </UserInfo>
               <Type className="type">
-                <RatingComment>
-                  {/* <img src={RatingColor} alt="Rating" /> */}
-                </RatingComment>
+                <LikePost
+                  isLike={comment.is_liked}
+                  countLike={comment.likes_count}
+                />
               </Type>
             </HeaderComment>
             <div className="body">

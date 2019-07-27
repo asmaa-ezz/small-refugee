@@ -28,7 +28,7 @@ const Home = () => {
         style={{
           backgroundColor: PURPLE,
           height: "62px",
-          color: "#000",
+          color: "#fff",
           padding: "10px 80px",
           textAlign: "center",
           borderRadius: "5px",
