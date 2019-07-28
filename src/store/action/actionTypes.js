@@ -20,6 +20,10 @@ export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const ADD_LIKE_POST = 'ADD_LIKE_POST';
 export const DELETE_LIKE_POST = 'DELETE_LIKE_POST';
+// export const DELETE_COMMENT = 'DELETE_COMMENT';
+// export const EDIT_COMMENT = 'EDIT_COMMENT';
+// export const ADD_LIKE_COMMENT = 'ADD_LIKE_COMMENT';
+// export const DELETE_LIKE_COMMENT = 'DELETE_LIKE_COMMENT';
 
 // Action of Lesson
 

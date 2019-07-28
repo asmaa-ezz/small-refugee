@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 import Moment from "react-moment";
+import "moment/locale/ar";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import CreateComment from "./CreateComment";
@@ -161,6 +162,8 @@ class Post extends Component {
       likes_count
     } = this.props.data;
 
+    console.log("cccc", this.props.dataStitic);
+
     return (
       this.props.data && (
         <DivPost>
@@ -198,6 +201,15 @@ class Post extends Component {
               >
                 {user_first_name} {user_last_name}
               </div>
+              <span
+                style={{
+                  fontSize: "9px",
+                  marginTop: "12px",
+                  marginLeft: "4px"
+                }}
+              >
+                {" منذ"}
+              </span>
               <Moment
                 fromNow
                 ago
@@ -245,6 +257,7 @@ class Post extends Component {
                     <div
                       className="dropdown-menu"
                       aria-labelledby="dropdownMenu2"
+                      style={{ minWidth: "90px" }}
                     >
                       <button
                         style={{ cursor: "pointer" }}
@@ -252,7 +265,7 @@ class Post extends Component {
                         type="button"
                         onClick={() => this.handleEdit(id, text, subject_title)}
                       >
-                        Edit
+                        تعديل
                       </button>
                       <button
                         style={{ cursor: "pointer" }}
@@ -260,7 +273,7 @@ class Post extends Component {
                         type="button"
                         onClick={() => this.handleDelet(id)}
                       >
-                        Delete
+                        حذف
                       </button>
                     </div>
                   </div>

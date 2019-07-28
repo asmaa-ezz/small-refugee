@@ -1,29 +1,42 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ListPosts from "../../post/ListPosts";
-import { DecodeToken } from "../../../store/action/actionCreator/actionAuth";
+import UserInfoPage from "../../common/UserInfoPage";
 
 class Profile extends Component {
-  componentDidMount() {
-    this.props.DecodeToken();
-  }
-
   render() {
-    return this.props.user ? (
-      <React.Fragment>
-        <ListPosts usernameFilter={this.props.user.username} />
-      </React.Fragment>
-    ) : (
-      <div>loging</div>
+    const { history } = this.props;
+    const { userImage, fullName, stage } = this.props.dataStitic;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-2">
+            <UserInfoPage
+              history={history}
+              image={userImage}
+              fullName={fullName}
+              type={stage}
+            />
+          </div>
+          <div className="col-6">
+            {this.props.user ? (
+              <ListPosts
+                usernameFilter={this.props.user.username}
+                history={history}
+                dataStitic={this.props.dataStitic}
+              />
+            ) : (
+              <div>loding</div>
+            )}
+          </div>
+          <div className="col-4">
+            <div />
+          </div>
+        </div>
+      </div>
     );
   }
 }
-
-const mapDispatchToProps = dispatch => {
-  return {
-    DecodeToken: () => dispatch(DecodeToken())
-  };
-};
 
 const mapStatusToProps = state => {
   return {
@@ -31,7 +44,4 @@ const mapStatusToProps = state => {
   };
 };
 
-export default connect(
-  mapStatusToProps,
-  mapDispatchToProps
-)(Profile);
+export default connect(mapStatusToProps)(Profile);

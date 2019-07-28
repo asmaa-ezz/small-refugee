@@ -23,6 +23,7 @@ class SubjectPost extends Component {
             <ListPosts
               subjectFilter={this.props.match.params.title}
               history={history}
+              dataStitic={this.props.dataStitic}
             />
           </div>
           <div className="col-4">

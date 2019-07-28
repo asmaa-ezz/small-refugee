@@ -33,20 +33,21 @@ class Main extends Component {
         <div className="container">
           <Switch>
             <PublicRoute exact path="/home" component={Home} />
+            <PublicRoute path="/reset-password" component={ResetPassword} />
+            <PublicRoute path="/sign-in" component={SignIn} />
+            <PublicRoute path="/sign-up" component={SignUp} />
+
+            <Route path="/sign-out" component={SignOut} />
+
             <PrivateRoute
               exact
               path="/"
               component={Share}
               dataStitic={dataStitic}
             />
-            <PublicRoute path="/sign-in" component={SignIn} />
-            <PublicRoute path="/sign-up" component={SignUp} />
-            <Route path="/sign-out" component={SignOut} />
-            <PublicRoute path="/reset-password" component={ResetPassword} />
-            <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute
-              path="/posts/:title"
-              component={SubjectPost}
+              path="/profile"
+              component={Profile}
               dataStitic={dataStitic}
             />
             <PrivateRoute
@@ -54,6 +55,12 @@ class Main extends Component {
               component={UserProfile}
               dataStitic={dataStitic}
             />
+            <PrivateRoute
+              path="/posts/:title"
+              component={SubjectPost}
+              dataStitic={dataStitic}
+            />
+
             {/* Pages */}
             <PrivateRoute
               exact

@@ -183,9 +183,7 @@ export const AddLike = (idPost) => dispatch => {
   //   body: JSON.stringify(data)
   // })
   //   .then(res => res.json())
-  //   .then(like => {
-  console.log('ccccc', idPost);
-
+  //   .then(() => {
   dispatch({
     type: ADD_LIKE_POST,
     payload: idPost
@@ -206,11 +204,11 @@ export const DeleteLike = (idPost) => dispatch => {
   //   },
   //   body: JSON.stringify(data)
   // })
-  //   .then(res => res.json())
-  //   .then(like => {
+  //   .then(() => {
   dispatch({
     type: DELETE_LIKE_POST,
     payload: idPost
   })
   // })
+
 };
