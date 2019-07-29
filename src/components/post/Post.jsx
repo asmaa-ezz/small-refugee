@@ -148,7 +148,8 @@ class Post extends Component {
       created_at,
       comments,
       is_liked,
-      likes_count
+      likes_count,
+      like_id
     } = this.props.data;
     return (
       this.props.data && (
@@ -204,7 +205,12 @@ class Post extends Component {
                   {subject_title}
                 </TypeClass>
               )}
-              <LikePost isLike={is_liked} countLike={likes_count} idPost={id} />
+              <LikePost
+                isLike={is_liked}
+                countLike={likes_count}
+                idPost={id}
+                likeId={like_id}
+              />
 
               {this.props.user && this.props.user.username === user_username && (
                 <div className="text-right">
@@ -262,6 +268,7 @@ class Post extends Component {
           </div>
           <hr style={{ width: "106%", marginRight: "-15px" }} />
           <CommentsList
+            idPost={id}
             list={comments}
             history={history}
             isUser={this.props.user.username === user_username}

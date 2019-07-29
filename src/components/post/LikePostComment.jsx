@@ -4,8 +4,8 @@ import Rating from "../../assets/image/Rating.png";
 import Rating2 from "../../assets/image/Rating2.png";
 import { connect } from "react-redux";
 import {
-  AddLike,
-  DeleteLike
+  AddLikeCommint,
+  DeleteLikeCommint
 } from "../../store/action/actionCreator/actionPost";
 import { TURQUOISE } from "../../constant/Color";
 
@@ -38,10 +38,12 @@ const countNull = {
   fontWeight: 700
 };
 
-class LikePost extends Component {
+class LikePostComment extends Component {
   handleLike() {
-    const { isLike, idPost, likeId } = this.props;
-    isLike ? this.props.DeleteLike(likeId, idPost) : this.props.AddLike(idPost);
+    const { isLike, idPost, likeId, idComment } = this.props;
+    isLike
+      ? this.props.DeleteLikeCommint(likeId, idComment, idPost)
+      : this.props.AddLikeCommint(idComment, idPost);
   }
   render() {
     const { isLike, countLike } = this.props;
@@ -61,12 +63,13 @@ class LikePost extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    AddLike: id => dispatch(AddLike(id)),
-    DeleteLike: (idLike, idPost) => dispatch(DeleteLike(idLike, idPost))
+    AddLikeCommint: (id, idPost) => dispatch(AddLikeCommint(id, idPost)),
+    DeleteLikeCommint: (idLike, idComment, idPost) =>
+      dispatch(DeleteLikeCommint(idLike, idComment, idPost))
   };
 };
 
 export default connect(
   null,
   mapDispatchToProps
-)(LikePost);
+)(LikePostComment);

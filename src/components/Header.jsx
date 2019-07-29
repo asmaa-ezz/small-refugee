@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PURPLE, GREEN } from "../constant/Color";
 import Logo from "./common/Logo";
-import ButtonBorde from "./common/ButtonBorde";
+import ButtonBordeHeader from "./common/ButtonBordeHeader";
 import Icon from "./common/Icon";
 import UserInfoHeader from "./common/UserInfoHeader";
 
@@ -55,7 +55,7 @@ class Header extends Component {
                 <Icon source={Message} text="Message" number="4" />
                 <Icon source={Bell} text="Bell" number="3" />
 
-                <ButtonBorde
+                <ButtonBordeHeader
                   height={"40px"}
                   path="/sign-out"
                   text="تسجيل الخروج"
@@ -88,7 +88,7 @@ class Header extends Component {
                 >
                   تسجيل الدخول
                 </Link>
-                <ButtonBorde
+                <ButtonBordeHeader
                   path="/sign-up"
                   text="التسجيل"
                   padding="5px 30px"

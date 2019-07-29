@@ -4,11 +4,13 @@ import Moment from "react-moment";
 import UserDefault from "../../assets/image/UserDefault.png";
 import LikePost from "./LikePost";
 import Swal from "sweetalert2";
+import { connect } from "react-redux";
 import {
-  DeletePostComment,
-  EditPostComment
+  DeletePostCommint,
+  EditPostCommint
 } from "../../store/action/actionCreator/actionPost";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
+import LikePostComment from "./LikePostComment";
 
 const DivComment = styled.div`
   background-color: #fff;
@@ -63,7 +65,7 @@ const TextComment = styled.p`
 `;
 
 class CommentsList extends Component {
-  handleEdit = (idPost, text, subject) => {
+  handleEdit = (idPost, text) => {
     Swal.fire({
       title: "Edit Post",
       html: `<input id="swal-input1" class="swal2-input" placeholder="Enter post" value='${text}'>`,
@@ -81,11 +83,11 @@ class CommentsList extends Component {
       .then(result => {
         const a = JSON.parse(result);
         const { id, text } = a.value.data;
-        this.props.EditPost(id, text);
+        this.props.EditPostCommint(id, this.props.idPost, text);
       });
   };
 
-  handleDelet = idPost => {
+  handleDelet = idComment => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -97,7 +99,7 @@ class CommentsList extends Component {
     swalWithBootstrapButtons
       .fire({
         title: "Are you sure?",
-        text: "Do you want to delete the Post?",
+        text: "Do you want to delete the Comment?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes, delete it!",
@@ -106,7 +108,7 @@ class CommentsList extends Component {
       })
       .then(result => {
         if (result.value) {
-          this.props.DeletePost(idPost);
+          this.props.DeletePostCommint(idComment, this.props.idPost);
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your post has been deleted.",
@@ -175,10 +177,14 @@ class CommentsList extends Component {
                 </Moment>
               </UserInfo>
               <Type className="type">
-                <LikePost
+                <LikePostComment
                   isLike={comment.is_liked}
                   countLike={comment.likes_count}
+                  idComment={comment.id}
+                  idPost={this.props.idPost}
+                  likeId={comment.like_id}
                 />
+
                 {this.props.isUser && (
                   <div className="text-right">
                     <div className="dropdown">
@@ -244,4 +250,16 @@ class CommentsList extends Component {
   }
 }
 
-export default CommentsList;
+const mapDispatchToProps = dispatch => {
+  return {
+    DeletePostCommint: (idComment, idPost) =>
+      dispatch(DeletePostCommint(idComment, idPost)),
+    EditPostCommint: (idComment, idPost, text) =>
+      dispatch(EditPostCommint(idComment, idPost, text))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CommentsList);
