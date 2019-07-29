@@ -35,6 +35,9 @@ export const GET_POSTS_LESSON = 'GET_POSTS_LESSON';
 export const ADD_POST_LESSON = 'ADD_POST_LESSON';
 export const ADD_COMMENT_LESSON = 'ADD_COMMENT_LESSON';
 export const CHANGE_LESSON_NOW = 'CHANGE_LESSON_NOW';
+export const DELETE_LESSON_POST = 'DELETE_LESSON_POST';
+export const EDIT_LESSON_POST = 'EDIT_LESSON_POST';
+
 
 // Action of Quiz
 

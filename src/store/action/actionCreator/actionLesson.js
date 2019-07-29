@@ -1,4 +1,14 @@
-import { GET_UNITS, GET_LESSONS, START_LESSON, GET_POSTS_LESSON, ADD_POST_LESSON, ADD_COMMENT_LESSON, CHANGE_LESSON_NOW } from '../actionTypes';
+import {
+  GET_UNITS,
+  GET_LESSONS,
+  START_LESSON,
+  GET_POSTS_LESSON,
+  ADD_POST_LESSON,
+  ADD_COMMENT_LESSON,
+  CHANGE_LESSON_NOW,
+  DELETE_LESSON_POST,
+  EDIT_LESSON_POST
+} from '../actionTypes';
 import { API } from '../confic'
 
 export const GetToken = () => {
@@ -146,4 +156,56 @@ export const ChangeLessonNow = id => dispatch => {
   })
 
 };
+
+
+export const DeletePostLesson = id => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = `${API}main/post/${id}/`;
+
+  const Token = GetToken();
+
+  fetch((proxyurl + url), {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      "Authorization": `JWT ${Token}`,
+    },
+  })
+    .then(() => {
+      dispatch({
+        type: DELETE_LESSON_POST,
+        payload: id
+      })
+    })
+};
+
+export const EditPostLesson = (id, text, idLesson) => dispatch => {
+  const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+  const url = `${API}main/post/${id}/`;
+
+  const Token = GetToken();
+
+  const data = {
+    text: text,
+    lesson: idLesson
+  }
+  fetch((proxyurl + url), {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      "Authorization": `JWT ${Token}`,
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(newPost => {
+      console.log('ddd', newPost);
+
+      dispatch({
+        type: EDIT_LESSON_POST,
+        payload: newPost
+      })
+    })
+};
+
 

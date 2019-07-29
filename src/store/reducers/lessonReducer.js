@@ -51,6 +51,24 @@ const lessonReducer = (state = initState, action) => {
             { ...item, comments: [...item.comments, action.payload] } : item
         }),
       }
+    case 'DELETE_LESSON_POST':
+      return {
+        ...state,
+        commentLesson: action.payload,
+        listPostLesson: state.listPostLesson.filter(item => {
+          return item.id !== action.payload
+        }),
+      }
+    case 'EDIT_LESSON_POST':
+      return {
+        ...state,
+        commentLesson: action.payload,
+        listPostLesson: state.listPostLesson.map(item => {
+          return (item.id === action.payload.id) ?
+            { ...item, text: action.payload.text } : item
+        }),
+      }
+
     default:
       return state;
   }

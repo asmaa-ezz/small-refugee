@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 import CreateCommentLesson from "./CreateCommentLesson";
 import CommentsListLesson from "./CommentsListLesson";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 import Rating from "../../assets/image/Rating.png";
 import UserDefault from "../../assets/image/UserDefault.png";
+
+import {
+  DeletePostLesson,
+  EditPostLesson
+} from "../../store/action/actionCreator/actionLesson";
 
 const DivPost = styled.div`
   background-color: #fff;
@@ -71,6 +77,66 @@ const TextPost = styled.p`
 `;
 
 class PostLesson extends Component {
+  handleEdit = (idPost, text, subject) => {
+    Swal.fire({
+      title: "Edit Post",
+      html: `<input id="swal-input1" class="swal2-input" placeholder="Enter post" value='${text}'>`,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          data: {
+            text: document.getElementById("swal-input1").value,
+            id: idPost
+          }
+        };
+      }
+    })
+      .then(res => JSON.stringify(res))
+      .then(result => {
+        const a = JSON.parse(result);
+        const { id, text } = a.value.data;
+        this.props.data &&
+          this.props.EditPostLesson(id, text, this.props.data.lesson);
+      });
+  };
+
+  handleDelet = idPost => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "Do you want to delete the Post?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+      })
+      .then(result => {
+        if (result.value) {
+          this.props.DeletePostLesson(idPost);
+          swalWithBootstrapButtons.fire(
+            "Deleted!",
+            "Your post has been deleted.",
+            "success"
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your imaginary file is safe :)",
+            "error"
+          );
+        }
+      });
+  };
+
   render() {
     const { history } = this.props;
     const {
@@ -116,19 +182,59 @@ class PostLesson extends Component {
             </Moment>
           </UserInfo>
           <Type className="type">
-            {subject_title && (
-              <TypeClass
-                onClick={() => {
-                  history.push(`/posts/${subject_title}`);
-                }}
-              >
-                {subject_title}
-              </TypeClass>
-            )}
             <RatingPost>
               <img src={Rating} alt="Rating" style={{ marginLeft: "4px" }} />
               <span style={{ color: "#fff", fontSize: "10px" }}>13</span>
             </RatingPost>
+            {this.props.user && this.props.user.username === user_username && (
+              <div className="text-right">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenu2"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      background: "none",
+                      color: "rgb(130, 131, 217)",
+                      border: "none",
+                      fontSize: "30px",
+                      outline: "none",
+                      marginRight: "14px"
+                    }}
+                  />
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenu2"
+                    style={{ minWidth: "90px" }}
+                  >
+                    <button
+                      style={{ cursor: "pointer" }}
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => this.handleEdit(id, text, subject_title)}
+                    >
+                      تعديل
+                    </button>
+                    <button
+                      style={{ cursor: "pointer" }}
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => this.handleDelet(id)}
+                    >
+                      حذف
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </Type>
         </HeaderPost>
 
@@ -154,9 +260,20 @@ class PostLesson extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    DeletePostLesson: id => dispatch(DeletePostLesson(id)),
+    EditPostLesson: (id, text, idLesson) =>
+      dispatch(EditPostLesson(id, text, idLesson))
+  };
+};
+
 const mapStateToProps = state => {
   return {
     user: state.auth.user
   };
 };
-export default connect(mapStateToProps)(PostLesson);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostLesson);
