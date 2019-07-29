@@ -70,16 +70,6 @@ const TextPost = styled.p`
 `;
 
 class Post extends Component {
-  state = {
-    viewComment: false
-  };
-
-  handleCommet = () => {
-    this.setState(prevState => ({
-      viewComment: !prevState.viewComment
-    }));
-  };
-
   handleEdit = (idPost, text, subject) => {
     Swal.fire({
       title: "Edit Post",
@@ -99,7 +89,6 @@ class Post extends Component {
         const a = JSON.parse(result);
         const { id, text } = a.value.data;
         this.props.EditPost(id, text);
-        // Swal.fire(JSON.stringify(result));
       });
   };
 
@@ -161,23 +150,11 @@ class Post extends Component {
       is_liked,
       likes_count
     } = this.props.data;
-
-    console.log("cccc", this.props.dataStitic);
-
     return (
       this.props.data && (
         <DivPost>
           <HeaderPost className="header">
             <UserInfo className="user-name">
-              {/* {!user_avatar.includes("images") ? (
-              <ImgUser
-                src={user_avatar}
-                alt="user-img"
-                onClick={() => {
-                  history.push(`/username/${user_username}`);
-                }}
-              />
-            ) : ( */}
               <ImgUser
                 src={UserDefault}
                 alt="user-img"
@@ -185,7 +162,6 @@ class Post extends Component {
                   history.push(`/username/${user_username}`);
                 }}
               />
-              {/* )} */}
               <div
                 onClick={() => {
                   history.push(`/username/${user_username}`);
@@ -285,7 +261,11 @@ class Post extends Component {
             <TextPost>{text}</TextPost>
           </div>
           <hr style={{ width: "106%", marginRight: "-15px" }} />
-          <CommentsList list={comments} history={history} />
+          <CommentsList
+            list={comments}
+            history={history}
+            isUser={this.props.user.username === user_username}
+          />
           {this.props.dataStitic && (
             <CreateComment
               url={url}

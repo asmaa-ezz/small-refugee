@@ -3,7 +3,11 @@ import styled from "styled-components";
 import Moment from "react-moment";
 import UserDefault from "../../assets/image/UserDefault.png";
 import LikePost from "./LikePost";
-
+import Swal from "sweetalert2";
+import {
+  DeletePostComment,
+  EditPostComment
+} from "../../store/action/actionCreator/actionPost";
 import { PURPLE, BORDER, TURQUOISE } from "../../constant/Color";
 
 const DivComment = styled.div`
@@ -59,6 +63,68 @@ const TextComment = styled.p`
 `;
 
 class CommentsList extends Component {
+  handleEdit = (idPost, text, subject) => {
+    Swal.fire({
+      title: "Edit Post",
+      html: `<input id="swal-input1" class="swal2-input" placeholder="Enter post" value='${text}'>`,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          data: {
+            text: document.getElementById("swal-input1").value,
+            id: idPost
+          }
+        };
+      }
+    })
+      .then(res => JSON.stringify(res))
+      .then(result => {
+        const a = JSON.parse(result);
+        const { id, text } = a.value.data;
+        this.props.EditPost(id, text);
+      });
+  };
+
+  handleDelet = idPost => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "Do you want to delete the Post?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+      })
+      .then(result => {
+        if (result.value) {
+          this.props.DeletePost(idPost);
+          swalWithBootstrapButtons.fire(
+            "Deleted!",
+            "Your post has been deleted.",
+            "success"
+          );
+        } else if (
+          // Read more about handling dismissals
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your imaginary file is safe :)",
+            "error"
+          );
+        }
+      });
+  };
+
   render() {
     const { list, history } = this.props;
     const comments =
@@ -113,6 +179,57 @@ class CommentsList extends Component {
                   isLike={comment.is_liked}
                   countLike={comment.likes_count}
                 />
+                {this.props.isUser && (
+                  <div className="text-right">
+                    <div className="dropdown">
+                      <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenu2"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          background: "none",
+                          color: "rgb(130, 131, 217)",
+                          border: "none",
+                          fontSize: "30px",
+                          outline: "none",
+                          marginRight: "14px"
+                        }}
+                      />
+                      <div
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenu2"
+                        style={{ minWidth: "90px" }}
+                      >
+                        <button
+                          style={{ cursor: "pointer" }}
+                          className="dropdown-item"
+                          type="button"
+                          onClick={() =>
+                            this.handleEdit(comment.id, comment.text)
+                          }
+                        >
+                          تعديل
+                        </button>
+                        <button
+                          style={{ cursor: "pointer" }}
+                          className="dropdown-item"
+                          type="button"
+                          onClick={() => this.handleDelet(comment.id)}
+                        >
+                          حذف
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </Type>
             </HeaderComment>
             <div className="body">

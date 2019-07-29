@@ -69,13 +69,21 @@ class Header extends Component {
               <div className="col-2 text-right">
                 <Logo />
               </div>
-              <div className="col-10 text-right" style={{ marginTop: "12px" }}>
+              <div
+                className="col-10 text-right"
+                style={{
+                  marginTop: "5px",
+                  display: "flex",
+                  justifyContent: "flex-end"
+                }}
+              >
                 <Link
                   to="/sign-in"
                   style={{
                     color: "#fff",
                     marginLeft: "30px",
-                    fontFamily: "Cairo, sans-serif"
+                    fontFamily: "Cairo, sans-serif",
+                    marginTop: "5px"
                   }}
                 >
                   تسجيل الدخول
